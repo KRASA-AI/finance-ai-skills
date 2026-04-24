@@ -14,18 +14,22 @@ This repo is a complete AI toolkit for finance. Every skill is a standalone prom
 | Skill | What it does | Time saved |
 |-------|-------------|------------|
 | 13-Week Cash Flow Forecaster | Build a rolling 13-week direct-method cash flow forecast that consolidates AR collections, AP disbursements, payroll, debt service, capex, and tax payments into a weekly liquidity view. | ~2 hr/forecast cycle |
+| 3-Statement Model Constructor | Build a fully integrated, tied-out 3-statement financial model (Income Statement → Cash Flow Statement → Balance Sheet) from a target's historical filings and a forward assumption set. | ~3 hr/model |
 | Accretion/Dilution Analyzer | Evaluate whether an announced or contemplated M&A transaction is accretive or dilutive to the acquirer's earnings per share. | ~75 min/deal |
-| Budget Variance Analyzer | Compare actual financial performance against budgeted targets, identify material variances, explain root causes, and recommend corrective actions. | ~25 min/analysis |
+| Budget Variance Analyzer | Produce audit-ready budget-to-actual variance commentary for a full FP&A cycle — monthly close, quarterly review, rolling forecast, or board-package prep. | ~45 min/analysis |
 | Comparable Company Analysis | Build a peer-group trading-multiples analysis ("public comps") that frames where a target company trades relative to its cohort on revenue, EBITDA, earnings, and growth-adjusted multiples. | ~60 min/comp set |
+| Credit Memo Drafter | Draft a complete, audit-ready commercial credit memorandum from a borrower's financial statements, loan request, and collateral package. | ~4 hr/memo |
 | DCF Valuation Builder | Produce a defensible discounted cash-flow valuation from a target's historical financials, management guidance, and comparable market inputs. | ~90 min/valuation |
 | Earnings Call Summarizer | Extract key financial metrics, guidance revisions, management commentary themes, and analyst concerns from earnings call transcripts. | ~20 min/call |
 | Financial Model Documenter | Write clear, structured documentation for existing financial models — covering assumptions, methodology, data sources, sensitivities, and limitations. | ~20 min/model |
 | Investment Memo Drafter | Structure deal notes, research, and financial data into a formatted investment memorandum with a clear thesis, risk assessment, valuation summary, and comparable analysis. | ~45 min/memo |
 | LBO Model Builder | Build a defensible leveraged buyout model from a target's financials, a sponsor's proposed deal terms, and a financing structure. | ~2.5 hr/model |
 | Market Research Brief | Compile a structured sector or sub-industry brief that sizes the market, maps the competitive landscape, catalogs recent transactions and capital flows, surfaces regulatory and macro catalysts, and synthesizes 3–5 actionable investment or strategic implications. | ~30 min/brief |
+| Month-End Close Flux Commentator | Generate account-level flux (period-over-period) commentary for the month-end close process. | ~2 hr/close |
 | Morning Notes Drafter | Draft a concise, desk-ready morning note for a sell-side or buy-side analyst's coverage universe. | ~40 min/morning |
-| Stress-Test Scenario Modeler | Model downside financial scenarios — market corrections, revenue shortfalls, interest rate shocks, client attrition — and quantify their impact on portfolios, cash flow, or business performance. | ~30 min/scenario |
-| Advisor Meeting Prep | Prepare financial advisors for client and prospect meetings by organizing key data points, generating tailored talking points, anticipating client questions, and creating a structured agenda. | ~25 min/meeting |
+| PE Due Diligence Synthesizer | Ingest a private-equity data room (or any structured corpus of deal documents), classify and index every document, extract structured deal terms against an investment-criteria checklist, cross-check claims across sources, and produce a citation-linked diligence memo that the deal team can query in natural language. | ~6 hr/deal |
+| Stress-Test Scenario Modeler | Design, run, and document adverse-scenario stress tests across five common contexts: (1) bank / depository supervisory stress tests (CCAR / DFAST severely-adverse, IRRBB for interest-rate risk in the banking book, LCR / NSFR for liquidity, CECL qualitative overlay), (2) RIA / asset-manager client-portfolio stress (drawdown, rate shock, credit-spread widening, liquidity crunch), (3) corporate FP&A downside-planning and covenant-cushion testing, (4) insurance ORSA / capital-adequacy scenarios, and (5) PE / portfolio-company value-at-risk. | ~90 min/scenario run |
+| Advisor Meeting Prep | Produce a complete advisor meeting-prep package tailored to the specific meeting type — portfolio review, prospect discovery, annual financial-plan review, onboarding, referral introduction, centers-of-influence (COI) / professional-partner meeting, or ERISA / 401(k) plan-sponsor review. | ~50 min/meeting |
 | Client Portfolio Update | Draft a clear, compliant, client-ready portfolio update that covers period performance, allocation and positioning changes, benchmark context, contributions and withdrawals, and forward outlook. | ~15 min/update |
 | Tax-Aware Portfolio Rebalancer | Generate a tax-optimized rebalancing plan for a client household that brings the portfolio back to its target allocation at the lot level. | ~45 min/account |
 | Tax-Loss Harvesting Identifier | Scan a client's taxable portfolio for positions trading below cost basis, identify candidate harvest trades that realize losses without triggering wash-sale rules, and propose replacement securities that maintain target exposure. | ~30 min/account |
@@ -34,7 +38,7 @@ This repo is a complete AI toolkit for finance. Every skill is a standalone prom
 | Meeting Summarizer | Turn raw meeting notes, a recording transcript, or dictated bullet points into a structured, audit-trail-ready summary tailored to the most common meeting types in a finance practice: investment committee (IC), portfolio / advisor-client reviews, compliance and CCO reviews, trading / operations huddles, partner and LP updates, deal / pipeline reviews, and sales / prospect discovery. | ~20 min/meeting |
 | Review Responder | Craft compliant, professional responses to public reviews (Google, Yelp, Trustpilot, BBB, Glassdoor, advisor-directory sites such as SmartAsset / WiserAdvisor / Paladin, and app-store reviews of finance apps) for a regulated financial-services practice. | ~15 min/response |
 
-**Total time saved per use: ~622+ minutes across all skills.**
+**Total time saved per use: ~727+ minutes across all skills.**
 
 ## Quick Start
 
