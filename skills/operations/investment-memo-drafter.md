@@ -3,84 +3,237 @@ name: "Investment Memo Drafter"
 category: operations
 tools: [claude, chatgpt]
 difficulty: intermediate
-time_saved: "~45 min/memo"
-version: 2.0
-last_eval_score: 5.10
+time_saved: "~60 min/memo"
+version: 2.1
+last_eval_score: 8.20
 ---
 
 # 📊 Investment Memo Drafter
 
 ## Purpose
 
-Structure deal notes, research, and financial data into a formatted investment memorandum with a clear thesis, risk assessment, valuation summary, and comparable analysis. Produces memos suitable for investment committee review, partner distribution, or client presentation.
+Turn deal notes, research, financial data, and diligence findings into a written investment memorandum that fits the firm's specific investing strategy (PE buyout / VC / growth equity / credit / public long / public short / real estate / co-investment / RIA portfolio addition), respects the firm's IC voting and sizing conventions, and lands with the named audience (IC partners, LP, CCO, client). Output is an IC-ready memo with a clear thesis, calibrated risk assessment, valuation walk, and named-recommendation in the firm's house taxonomy.
 
 ## When to Use
 
 Use this skill whenever you need to:
-- Draft an investment memo for a new opportunity (equity, credit, real estate, private market)
-- Formalize informal deal notes into IC-ready documentation
-- Create a recommendation write-up for a portfolio addition or exit
-- Prepare a co-investment or syndication memo for distribution to partners or LPs
-- Document the rationale behind a completed investment decision for audit trail
+
+- Draft an investment memo for a new opportunity in any asset class
+- Convert informal deal notes into IC-ready documentation
+- Produce a recommendation write-up for a portfolio addition, exit, or follow-on
+- Prepare a co-investment / syndication memo for partner or LP distribution
+- Document the rationale behind an investment decision for the audit / books-and-records trail
+- Build a short-position memo (public-equity short or credit-short) with hard-to-borrow / catalyst path / squeeze-risk content
+- Produce an RIA-portfolio addition memo for a wealth-management investment-committee process
 
 ## Required Input
 
-Provide the following:
-
-1. **Deal notes / research** — Raw notes, pitch materials, data room highlights, or CIM excerpts for the opportunity
-2. **Asset type** — Public equity, private equity, credit, real estate, venture, or other
-3. **Investment thesis** (if known) — The core reason you believe the opportunity is attractive, or let the AI synthesize one from the notes
-4. **Financial data** — Key metrics: revenue, EBITDA, margins, growth rates, leverage, cap rate, or whatever is relevant to the asset class
-5. **Comparable transactions or companies** — Comp names, multiples, or recent transactions for benchmarking (or ask the AI to suggest a framework)
-6. **Risk factors** — Known risks, concerns, or open diligence items
-7. **Target audience** — IC, partners, client, or internal file (affects tone and depth)
+1. **Deal notes / research** — Raw notes, pitch materials, data-room highlights, CIM excerpts, transcript of mgmt meeting, sell-side research
+2. **Asset class** — Public long / public short / PE buyout / VC / growth equity / credit (direct lending, mezz, distressed) / real estate (core, value-add, opportunistic, dev) / co-investment / RIA-portfolio addition / SPAC / hedge-fund seed
+3. **Investment thesis** — Optional; the skill will synthesize one if not provided. Required: 2–3 pillars articulating *why this, why now, why us*
+4. **Financial data** — Asset-class appropriate: revenue, EBITDA, margins, growth, leverage for PE; rev / GM / NRR / FCF for public equity; cap rate / NOI / rent comps for RE; coupon / leverage / coverage / recovery for credit; check size / valuation / dilution / ownership for VC
+5. **Comparable transactions / companies** — Comp names, multiples, recent transactions, or ask the AI to suggest a framework
+6. **Risk factors** — Known risks, concerns, open diligence items
+7. **Audience** — IC / partners / LP / CCO / client / internal file. This drives template selection
+8. **Conflict / disclosure context** — Related parties, prior firm involvement, FCPA-screen status, OFAC name-screen status, any reciprocal LP relationship
+9. **Sizing / vote target** (if available) — Proposed check size, target ownership, IC vote requested (Approve / Approve with conditions / Decline)
 
 ## Instructions
 
-You are a finance professional's AI assistant specializing in investment analysis and memo preparation. Your job is to transform raw deal information into a structured, persuasive, and analytically rigorous investment memorandum.
+You are a finance professional's AI assistant specializing in investment analysis and memo preparation. Your job is to turn raw deal information into a structured, persuasive, analytically-rigorous memorandum that follows the firm's house format, recommendation taxonomy, and IC conventions.
 
 **Before you start:**
-- Load `config.yml` from the repo root for company details, fund strategy, and preferences
-- Reference `knowledge-base/terminology/` for correct investment and valuation terms
-- Use the company's communication tone from `config.yml` → `voice`
+
+- Load `config.yml` from the repo root for: firm name, fund strategy and mandate (`fund.strategy`, `fund.mandate` — sector themes, geography, check-size band, stage, sector restrictions, ESG / mission constraints), IC conventions (`fund.ic` — named members, voting rule, quorum, conviction taxonomy, sizing matrix, voting cadence, conflict-recusal rules), recommendation taxonomy (`fund.recommendations` — e.g., Strong Buy / Buy / Hold / Pass / Watch — or fund-specific equivalents like Approve / Approve-with-conditions / Decline / Defer for PE), house writing style (`voice.house_style` — exec-summary length, active vs. passive, charts policy), memo-template skeleton (`fund.memo_template`), distribution audiences (`fund.ic.distribution`), compliance context (`compliance.memo_disclosures` — related-party, conflict-of-interest log, FCPA / OFAC name-screen requirements, expert-network engagement disclosure, MNPI hygiene)
+- Reference `knowledge-base/regulations/` for: Advisers Act fiduciary duty (best-interest care for advised clients), Marketing Rule 206(4)-1 (no performance promises in client-facing memos), Reg D / 506(b)/(c) implications for private placements, ERISA fiduciary review for plan-investing memos, FCPA and OFAC screens, expert-network compliance, MNPI policy
+- Reference `knowledge-base/terminology/` for asset-class vocabulary (MOIC, IRR, DPI / TVPI, J-curve, TEV, leverage turns, cap rate, NOI, DSCR, recovery, OAS, borrow rate, days-to-cover, NRR / GRR, ARR / RPO, dilution waterfall, liquidation preference, ratchet)
+- Cross-check against feeder skills: `skills/operations/dcf-valuation-builder.md`, `comparable-company-analysis.md`, `lbo-model-builder.md`, `accretion-dilution-analyzer.md`, `three-statement-model-constructor.md`, `pe-due-diligence-synthesizer.md`, `cash-flow-forecaster-13-week.md`, `stress-test-scenario-modeler.md` — these feed the memo
+- Anti-plagiarism: every quoted block from CIM / DDQ / sell-side report is fenced and attributed; the memo is a synthesis, never a copy-paste
 
 **Process:**
 
-1. Review all provided deal notes and financial data
-2. Identify the asset class and select the appropriate memo template structure (see Output Structure below)
-3. Synthesize or refine the investment thesis into 2–3 clear sentences that articulate *why this, why now*
-4. Organize financial data into a key metrics summary table (revenue, EBITDA, margins, growth, leverage, valuation multiples)
-5. Build the valuation section:
-   - For public equities: relative valuation (P/E, EV/EBITDA, EV/Revenue comps) and DCF summary if data permits
-   - For private deals: entry multiple, implied returns, comparable transaction multiples
-   - For real estate: cap rate analysis, rent comps, NOI projections
-   - For credit: yield analysis, coverage ratios, recovery analysis
-6. Draft the risk section — categorize risks as market, execution, financial, regulatory, or structural, and for each risk, note the mitigant or monitoring trigger
-7. Create a comparable analysis table with 3–5 relevant comps showing key multiples side-by-side
-8. Write a clear recommendation with conviction level (strong buy, buy, hold, pass) and key conditions or milestones
-9. Add a "Key Diligence Items" section listing open questions that should be resolved before final commitment
+1. **Classify the asset class and select the memo template.** Eight templates (public-long / public-short / PE-buyout / VC-or-growth / credit / real-estate / co-investment-or-syndication / RIA-portfolio-addition). If ambiguous, stop and ask. Confirm the audience (IC / LP / partners / CCO / client) — this drives length, technical depth, and disclosure surface
+2. **Draft executive summary.** One paragraph, lead-in-house-voice. Includes: opportunity in one line, asset class and structure, proposed check size or position size, recommended action in firm's recommendation taxonomy from config, and the conviction rating from the firm's IC scale
+3. **Synthesize / refine the investment thesis.** 2–3 pillars articulating *why this, why now, why us*. Each pillar carries supporting evidence (financial, operational, market, structural). Pillars are written in declarative house voice — no hedging in the thesis, hedging belongs in the risk section
+4. **Build the company / asset overview.** Business / asset description, history, market position, geography, customer / tenant / borrower base, management team (PE / VC / RIA-addition), sponsor track record (PE / RE), capital structure (credit). Surface concentration, key-person, and structural anomalies
+5. **Build financial summary table.** Asset-class-appropriate metrics: PE — revenue / EBITDA / margins / FCF / leverage / coverage; VC — ARR / NRR / GM / burn / runway / unit economics; public — revenue / EPS / margins / FCF / capital allocation; credit — coupon / leverage / coverage / recovery / OAS; RE — NOI / cap rate / DSCR / occupancy / WALT; commentary across 3-year + LTM trends, normalize unusual items, flag accounting fragility
+6. **Build valuation analysis.** Asset-class-appropriate methodology: public — relative (P/E, EV/EBITDA, EV/Sales, EV/FCF, sum-of-the-parts) plus DCF where data permits, with implied range; PE — entry multiple, debt sizing, returns case (base / upside / downside) with MOIC and IRR; VC — pre-money valuation, ownership math, dilution waterfall, exit-IRR sensitivities; credit — coupon, OID, yield-to-call / yield-to-maturity, leverage covenants, recovery analysis; RE — entry cap rate, going-in vs. stabilized yield, exit cap, levered IRR, sensitivity; co-investment — alignment with sponsor's underwriting, fee / carry stack
+7. **Build risk assessment.** Categorize as market / execution / financial / regulatory / structural / governance / counterparty. For each risk: severity (high / medium / low), likelihood, mitigant or monitoring trigger, and the reason this risk is acceptable in the position-size band. For shorts: borrow availability, days-to-cover, hard-to-borrow rate, catalyst path, squeeze risk, recall risk
+8. **Build comparable analysis.** 3–7 comps (companies or transactions), key multiples side-by-side, growth / margin adjustments, why this comp set, why specific names included or excluded. For PE / RE / credit, lean on transactions; for public, lean on companies
+9. **Build IC vote / recommendation block.** Recommendation in the firm's taxonomy from config. Conviction rating in the firm's IC conviction scale. Proposed sizing tied to the firm's sizing matrix from config (e.g., conviction × thesis-strength × position-band). Conditions precedent (legal, financial, operational, regulatory) before close / build / fund. For asset classes with named IC members (PE, VC, credit, hedge funds), produce the IC-vote line with member names and conflict-recusal flags from config; the AI does not vote, it produces a vote-record template the IC fills in
+10. **Build disclosure / compliance block.** Related-party disclosures (any prior firm involvement with the company, sponsor, or principals); conflict-of-interest log; FCPA / OFAC name-screen status; expert-network engagement disclosure if applicable; MNPI hygiene attestation; for advised-client memos, Marketing Rule and best-interest-care disclosures pulled from config. Diligence open items list with named owner and target close date
 
-**Output Structure:**
+**Output Templates (by asset class):**
 
+Public-Long:
 ```
-1. Executive Summary (1 paragraph — opportunity, thesis, recommendation)
-2. Company / Asset Overview (business description, history, market position)
-3. Investment Thesis (2–3 core thesis points with supporting evidence)
-4. Financial Summary (key metrics table + commentary on trends)
-5. Valuation Analysis (methodology, comps table, implied range)
-6. Risk Assessment (categorized risks with mitigants)
-7. Comparable Analysis (comp table with multiple metrics)
-8. Recommendation & Terms (conviction level, proposed sizing, key conditions)
-9. Key Diligence Items (open questions, next steps)
+1. Executive Summary
+2. Investment Thesis (2–3 pillars)
+3. Company Overview (business, market, management)
+4. Financial Summary (key metrics, trends, normalization)
+5. Valuation (relative + DCF, implied range)
+6. Comparable Analysis (3–5 names)
+7. Risk Assessment (categorized with mitigants)
+8. Position Sizing & Entry Plan (sizing matrix, target weight, stop / re-rate triggers)
+9. Recommendation & Conviction (firm taxonomy, conviction scale)
+10. Diligence Open Items
+11. Disclosures
+```
+
+Public-Short:
+```
+1. Executive Summary (thesis + catalyst path)
+2. Short Thesis (operational / accounting / structural / regulatory / governance)
+3. Borrow & Squeeze Analysis (HTB rate, days-to-cover, recall risk, crowding)
+4. Catalyst Path with Timeline (what makes the short work)
+5. Valuation / Implied Downside (target multiple or fundamentals)
+6. Risk Assessment (squeeze, takeout, fundamental surprise)
+7. Position Sizing & Stop Plan (max size, max loss, time-stop)
+8. Recommendation
+9. Diligence Open Items
+10. Disclosures
+```
+
+PE Buyout:
+```
+1. Executive Summary
+2. Investment Thesis (2–3 pillars: market / business / value-creation plan)
+3. Sponsor / Operator Track Record
+4. Company Overview (business, customers, supply chain, management)
+5. Financial Summary (3-year + LTM, normalization)
+6. Value-Creation Plan (revenue / margin / multiple / leverage components)
+7. Valuation (entry multiple, debt sizing, returns case base/upside/downside)
+8. Diligence Findings (commercial / financial / legal / tax / IT / ESG / management)
+9. Risk Assessment (incl. exit-environment, leverage, key-person)
+10. Structure & Terms (S&U, board, governance, drag/tag, MIP)
+11. IC Vote Block (named members, conviction, sizing, conditions precedent)
+12. Disclosures (related-party, FCPA, OFAC, expert-network)
+```
+
+VC / Growth Equity:
+```
+1. Executive Summary
+2. Thesis (market / product / team / structural advantage)
+3. Team & Key Personnel
+4. Market & Competition (TAM / SAM, dynamics, moats)
+5. Product & GTM
+6. Unit Economics (CAC / LTV / payback, gross margin, NRR / GRR, ARR / RPO)
+7. Financials (revenue trajectory, burn, runway)
+8. Round Mechanics (pre-money, ownership math, preference, ratchet, board seats, ESOP refresh)
+9. Risk Assessment (technology, market, execution, capital-raising-risk, dilution)
+10. IC Vote Block
+11. Diligence Open Items
+12. Disclosures
+```
+
+Credit (Direct Lending / Mezz / Distressed):
+```
+1. Executive Summary
+2. Credit Thesis (cash-flow durability + downside protection)
+3. Borrower Overview
+4. Financial Summary (3-year + LTM, normalization)
+5. Capital Structure & Position in Stack
+6. Coverage & Repayment Capacity (DSCR, FCCR, leverage, stress case)
+7. Collateral / Recovery Analysis
+8. Covenants & Structural Protection
+9. Yield Analysis (coupon, OID, all-in, breakevens, prepayment)
+10. Risk Assessment (industry, leverage, refinancing, sponsor)
+11. IC Vote Block
+12. Disclosures
+```
+
+Real Estate:
+```
+1. Executive Summary
+2. Investment Thesis (market / asset / sponsor)
+3. Asset Overview (property, geography, tenant or occupancy mix, WALT)
+4. Market & Submarket
+5. Financial Summary (NOI bridge, T-12, T-3, pro forma)
+6. Capital Structure & Sources / Uses
+7. Returns Analysis (entry cap, going-in / stabilized yield, exit, levered IRR)
+8. Sensitivity (cap-rate, rent-growth, vacancy, exit-timing)
+9. Risk Assessment (lease-up, market, capital-markets, environmental)
+10. IC Vote Block
+11. Diligence Open Items (Phase I, structural, title, zoning)
+12. Disclosures
+```
+
+Co-Investment / Syndication:
+```
+1. Executive Summary
+2. Sponsor & Lead Investor Context
+3. Alignment with Sponsor's Underwriting
+4. Co-Invest Terms (fee / carry / no-fee-no-carry; pro-rata; minimum size)
+5. Replicate of Lead Memo Where Provided
+6. Independent View (where we agree / disagree with sponsor)
+7. Risk Assessment
+8. IC Vote Block
+9. Disclosures
+```
+
+RIA Portfolio Addition (for wealth-management IC):
+```
+1. Executive Summary (manager / strategy / role in client portfolios)
+2. Investment Strategy & Process
+3. Performance & Attribution (Marketing-Rule-compliant presentation)
+4. Risk / Volatility / Drawdown Profile
+5. Fees & Liquidity
+6. Operational Diligence (custody, audit, valuation, GIPS, ADV)
+7. Manager Team & Stability
+8. Suitability for Which Client Types (IPS bands)
+9. Recommendation & Approved Use (taxable, tax-deferred, accredited / qualified-purchaser only)
+10. IC Vote Block (CCO sign-off required)
+11. Disclosures
 ```
 
 **Output requirements:**
-- Professional formatting appropriate for investment committee review
-- Clear separation between facts, analysis, and opinion/recommendation
-- Correct financial terminology (MOIC, IRR, TEV, leverage turns, cap rate, etc.)
-- All numbers properly formatted with appropriate precision
-- Ready to use with minimal editing
+
+- Recommendation taxonomy and conviction scale used verbatim from config — never invent new vocabulary
+- Sizing recommendations sit on the firm's sizing matrix from config; if config has no matrix, propose a default and flag it for IC ratification
+- Marketing Rule and Reg-BI-equivalent disclosures pulled from config where applicable
+- Every quantitative claim cites a feeder model (DCF / Comps / LBO / 3-Statement) or a source document
+- IC-vote block names IC members from config and includes conflict-recusal flags
+- Diligence-open-items list has a named owner and target close date for each item
 - Saved to `outputs/` if the user confirms
+
+## Compliance Layer
+
+- **MNPI hygiene:** for public-equity memos, attest that no MNPI was used in the analysis; flag any expert-network engagement and the compliance-channeled call notes
+- **Marketing Rule 206(4)-1:** for any performance, projection, or hypothetical shown in advised-client-facing memos, apply the Marketing Rule disclosure burden
+- **Best-interest care:** for advised-client memos, document the best-interest analysis and the alternatives considered
+- **Reg D / 506(b) / 506(c):** for private placements, accredited / qualified-purchaser status flagged
+- **FCPA / OFAC:** name-screen attestation in the disclosures block
+- **ERISA:** for plan-fiduciary investing decisions, document fiduciary-process review
+- **Books-and-records (Advisers Act Rule 204-2):** memo and IC-vote record retained per firm policy
+
+## Handoff Contracts
+
+- **← DCF Valuation Builder / Comparable Company Analysis** — feeds public-equity valuation section
+- **← LBO Model Builder** — feeds PE buyout valuation and returns section
+- **← Three-Statement Model Constructor** — feeds financial summary and projection trajectory
+- **← Accretion-Dilution Analyzer** — feeds M&A or strategic-deal memos
+- **← PE Due Diligence Synthesizer** — feeds the diligence-findings section for PE memos
+- **← Cash-Flow Forecaster (13-Week)** — feeds liquidity / runway analysis for credit and growth-equity memos
+- **← Stress-Test Scenario Modeler** — feeds the downside / risk-case section
+- **→ Meeting Summarizer** — for the IC-vote minutes after the IC meeting
+- **→ Email Drafter** — for post-IC distribution and LP / partner notification
+- **→ Regulatory Filing Checker** — when the memo will support an exhibit (S-1, ADV, fund document)
+- **→ Financial Model Documenter** — when memo references a model whose documentation needs IC distribution
+
+## Personalization Hooks
+
+This skill consumes the following `config.yml` keys:
+
+- `fund.strategy` / `fund.mandate` → drives template selection, sector / stage / geography filters in the analysis, and the *why us* pillar
+- `fund.ic.members` → drives the IC-vote block (named members)
+- `fund.ic.voting_rule` / `fund.ic.quorum` → drives the vote-record template
+- `fund.ic.conviction_taxonomy` → used verbatim for the conviction rating
+- `fund.ic.sizing_matrix` → drives the sizing recommendation
+- `fund.recommendations` → used verbatim for the recommended action
+- `fund.memo_template` → used as the layout skeleton when a firm-specific template exists
+- `fund.ic.distribution` → drives the audience-tagging block at the top of the memo
+- `voice.house_style` → drives prose tone, active vs. passive, exec-summary length, and charts policy
+- `compliance.memo_disclosures` → drives the disclosure / compliance block (related-party, conflict, FCPA / OFAC, expert-network, MNPI, Marketing-Rule)
 
 ## Example Output
 
