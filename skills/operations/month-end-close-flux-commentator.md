@@ -4,8 +4,8 @@ category: operations
 tools: [claude, chatgpt]
 difficulty: intermediate
 time_saved: "~2 hr/close"
-version: 1.0
-last_eval_score: null
+version: 2.1
+last_eval_score: 8.30
 ---
 
 # 📆 Month-End Close Flux Commentator
@@ -87,13 +87,90 @@ You are a finance professional's AI assistant specializing in controllership, mo
 - FX effects segregated and separately explained; never blended into operating commentary
 - Saved to `outputs/` if the user confirms
 
+## Audience Templates
+
+1. **Controller Memo** — Investigation-first; bullet per material account with Δ$, Δ%, top driver, confidence rating, evidence citation (sub-ledger / accrual worksheet / PO / invoice reference), and proposed follow-up; internal distribution to the controller and the close team; ties to the close-package workpaper trail
+2. **MD&A Draft** — External-facing prose in "we" voice, SEC-filing tone, no forward-looking without safe-harbor framing, no un-aggregated detail that exposes competitive information; suited for direct hand-off to the MD&A drafter for the 10-Q / 10-K filing
+3. **CFO Review Deck** — Top-3 drivers per material line; chart-ready Δ breakdown; one-sentence explanation per bar; run-rate vs. one-time split; suited for the daily / weekly CFO close stand-up during close week
+4. **Audit-Support Binder** — Evidence-first; citation to sub-ledger / PO / invoice / accrual worksheet for every flagged item; tied to JE if posted; PCAOB AS 2305 substantive-analytical-procedure-ready; designed for external audit field-work review
+5. **Compliance-Close Flux** — Anomaly-log-forward; emphasizes accounts where proposed drivers do not reconcile, where the direction of Δ is inconsistent with known business drivers, or where the sub-ledger detail does not tie to the GL; suited for the compliance / internal-audit close-attestation cycle
+6. **Pre-Close Peek Flash** — Preliminary flux on T-2 / T-1 actuals; "watch list" of items likely to require accrual adjustment, cut-off entry, or intercompany true-up before the period is locked; suited for the in-close last-2-day controller cadence
+7. **Multi-Entity Consolidation Flux** — Flux at the legal-entity level with intercompany elimination context; useful for multi-entity closes where consolidation eliminations may obscure entity-level drivers; routes to consolidation-pre-check before the consolidated TB is locked
+8. **Segment / BU Flux** — Flux at the operating-segment level aligned to the CODM-reviewed measure (ASC 280 / IFRS 8); supports the segment-disclosure footnote and the segment-level operating review
+
+## Regulatory & Compliance Layer
+
+- **ASC 250 / IAS 8 (Accounting Changes and Error Corrections)** — Flux commentary that surfaces a prior-period adjustment must invoke the ASC 250 / IAS 8 framework — change in accounting principle vs. change in estimate vs. correction of error — with appropriate retrospective or prospective treatment; the commentary flags the candidate adjustment for controllership and external-auditor review before posting
+- **SEC Reg S-K Item 303 (MD&A)** — The MD&A-draft template aligns to the Item 303 standard for period-over-period commentary: identify the known trends, demands, commitments, events, or uncertainties that have had or are reasonably likely to have a material effect; tie commentary to the financial statement line item being explained
+- **Reg G (Non-GAAP Reconciliation)** — Where the flux commentary references non-GAAP measures (Adjusted EBIT, organic growth, constant-currency revenue), the most directly comparable GAAP measure and a reconciliation accompany the non-GAAP figure; never present non-GAAP without the reconciliation
+- **SOX §302 / §906 (Management Certifications)** — Flux commentary is a process input to the quarterly / annual management certification; material flux items driving changes to ICFR-relevant judgments are flagged to the controller for control-attribute documentation; the flux process itself is a key ICFR control
+- **PCAOB AS 2305 (Substantive Analytical Procedures)** — The audit-support binder format aligns to the auditor's analytical-procedure documentation requirements; the level of disaggregation, the precision of the expectation, and the explained-vs-unexplained Δ are documented
+- **PCAOB AS 2201 (ICFR Assessment)** — Close-flux is a key control; controller preparer / reviewer sign-off, timeliness, and evidence are documented per AS 2201 control-attribute requirements
+- **ASC 230 / IAS 7 (Cash Flow Statement)** — Flux on BS accounts that flow to the indirect-method CFS is reconciled to the CFS movement; non-cash items are isolated; CFS-impact flux items are flagged for the CFS preparer
+- **ASC 740 / IAS 12 (Income Taxes)** — Flux on tax-related accounts (DTA / DTL, current tax payable, ETR drivers) is reconciled to the tax provision workpaper; valuation-allowance changes flagged for tax-department review
+- **ASC 805 / IFRS 3 (Business Combinations)** — For closes following an acquisition, flux includes opening-balance-sheet measurement-period adjustments; the commentary distinguishes measurement-period adjustments from current-period operating drivers
+- **ASC 350 / 360 / IAS 36 (Impairment)** — Flux that surfaces an impairment indicator (sustained margin decline, customer-concentration loss, sustained share-price decline below carrying value) is flagged for impairment-trigger evaluation
+- **MNPI / Wall-Cross / Restricted-List Controls** — Flux commentary on a covered issuer is MNPI until publicly disseminated; the skill respects the firm's restricted-list, the wall-cross register, and the 10b5-1 plan posture for any covered issuer
+- **Books-and-Records Retention** — Flux workpapers retained per SOX §802 / 18 U.S.C. §1519 (public companies, 7-year minimum), SEC Rule 17a-4 (broker-dealers), and SSAE 18 (service organizations)
+- **SEC 2026 Examination Priorities** — Where AI / ML assists the driver-hypothesis generation or the materiality scoring, "AI cannot operate as a black box" — the methodology is documented, the inputs are auditable, the human controller's review of every material item is preserved, and the AI assistance is disclosed in the close-package narrative where required
+
+## Personalization Hooks
+
+Configure via `config.yml` in the repo root:
+
+```yaml
+month_end_flux_commentator:
+  erp_system: "SAP S/4HANA"                  # ERP or GL system (SAP, Oracle Fusion, NetSuite, Workday, etc.)
+  reporting_currency: "USD"
+  base_unit: "thousands"                     # thousands | millions
+  fiscal_calendar: "4-4-5"                   # calendar | 4-4-5 | 4-5-4 | 5-4-4 | 13-period
+  close_calendar:
+    soft_close_day: 3                        # business day on which preliminary actuals lock
+    hard_close_day: 5                        # business day on which books lock
+    consolidation_complete_day: 7            # business day on which consolidated TB is final
+  materiality_thresholds:
+    absolute_dollar: 25000                   # $ threshold for inclusion in flux
+    percent_change: 0.10                     # % threshold for inclusion in flux
+    combined_rule: "AND"                     # AND | OR — combined-threshold logic
+    bs_account_floor: 100000                 # higher floor for BS accounts
+    is_account_floor: 25000                  # IS account threshold
+  recurring_item_list:                       # known recurring drivers carried forward in commentary
+    - "monthly rent — escalator clause"
+    - "quarterly bonus accrual"
+    - "Q4 audit-fee accrual ramp"
+    - "annual insurance prepayment amortization"
+  commentary_style_default: "controller-memo" # controller-memo | mda-draft | cfo-deck | audit-support | compliance-close | flash | multi-entity | segment
+  external_filing_alignment: true            # MD&A-draft template aligns to issuer's MD&A style
+  segment_reporting_alignment: "operating-segments"  # operating-segments | reportable-segments | none
+  fx_treatment: "ASC 830 current-rate"       # ASC 830 current-rate | ASC 830 remeasurement | IAS 21
+  prior_period_carryforward: true            # include carry-forward statement on recurring items
+  proposed_je_threshold: 5000                # $ threshold above which the AI proposes a JE rather than just commenting
+  voice: "controller-neutral"                # voice register for narrative
+  output_format: "controller-memo"           # controller-memo | mda-draft | cfo-deck | audit-support | compliance-close | flash | multi-entity | segment
+```
+
 ## Handoff Contracts
 
-- **Budget Variance Analyzer** consumes: the run-rate vs. one-time split to isolate plan-vs-actual drivers
-- **Earnings Call Summarizer** can pull the top-3 flux drivers as "how to talk about the quarter" inputs
-- **Regulatory Filing Checker** can pull the MD&A-style output as a draft MD&A section for 10-Q / 10-K review
-- **Investment Memo Drafter** consumes: the run-rate EBIT for deal-side normalization
+**Inbound (this skill consumes from):**
+- **General Ledger Reconciler** supplies the reconciled trial balance as the authoritative source; unreconciled balances are flagged for resolution before flux commentary begins
+- **AI Controls Auditor (ICFR)** supplies the SOX / ICFR control-context that frames the close-flux as a key control with documented preparer / reviewer / timeliness attributes
+- **Three-Statement Model Constructor** supplies the budget / forecast comparison base where flux is run against forecast rather than against prior period
+
+**Outbound (this skill feeds into):**
+- **Budget Variance Analyzer** receives the run-rate vs. one-time split to isolate plan-vs-actual drivers (the flux commentator and the BVA together produce the close-cycle period-over-period + plan-vs-actual narrative)
+- **Three-Statement Model Constructor** receives the run-rate adjustments to refresh the rolling forward model assumptions
+- **Earnings Call Summarizer** receives the top-3 flux drivers as "how to talk about the quarter" inputs for the earnings-call prep
+- **Regulatory Filing Checker** receives the MD&A-draft output as the candidate MD&A section for 10-Q / 10-K review; close-flux commentary that crystallizes after period-end but before filing is flagged for subsequent-event evaluation
+- **Investment Memo Drafter** receives the run-rate EBIT for deal-side normalization
+- **AI Controls Auditor (ICFR)** receives the flux-control attribute log (preparer, reviewer, timeliness, evidence, anomalies flagged) for ICFR control-testing workpaper population
+- **Meeting Summarizer** receives the CFO-deck-style summary as the operating-review-meeting input
+- **Email Drafter** receives the close-summary headline as the input for the controller's close-completion email to the CFO
+- **Outputs/** archive for retention per the firm's records-retention policy (SOX §802, SEC 17a-4, SSAE 18)
 
 ## Example Output
 
 > [This section will be populated by the eval system with a reference example. For now, run the skill with sample input to see output quality.]
+
+## Anti-Plagiarism Note
+
+Every flux explanation, every driver hypothesis, every proposed JE, every audience-template narrative is generated per-input from the user-supplied trial balance and expected-driver list and the KRASA v2.1 skill idiom. Concepts of materiality-filtered flux commentary, run-rate vs. one-time tagging, driver hypothesis with confidence scoring, anomaly flagging, and MD&A-aligned commentary are drawn from public CPA / CFA / FP&A practitioner literature, AICPA / IIA / PCAOB guidance, and SEC Reg S-K / Reg G standards (concepts only, no verbatim content). Vendor ERP / sub-ledger references in the personalization hooks are configuration values only; no vendor documentation has been copied. No prior-issuer MD&A, earnings-release commentary, or close-package workpaper text is reproduced.
