@@ -18,6 +18,7 @@ This repo is a complete AI toolkit for finance. Every skill is a standalone prom
 | Accretion/Dilution Analyzer | Evaluate whether an announced or contemplated M&A transaction is accretive or dilutive to the acquirer's earnings per share. | ~75 min/deal |
 | Budget Variance Analyzer | Produce audit-ready budget-to-actual variance commentary for a full FP&A cycle — monthly close, quarterly review, rolling forecast, or board-package prep. | ~45 min/analysis |
 | CIM Drafter | Draft a complete, buyer-facing Confidential Information Memorandum (CIM) for a sell-side M&A or private-placement process from a target company's diligence file. | ~10 hr/CIM |
+| Capital Call & Distribution Waterfall Auditor | Produce an investor-ready, auditor-defensible cycle pack for a private-fund capital call or distribution. | ~4 hr per call / distribution cycle |
 | Comparable Company Analysis | Build a peer-group trading-multiples analysis ("public comps") that frames where a target company trades relative to its cohort on revenue, EBITDA, earnings, and growth-adjusted multiples. | ~60 min/comp set |
 | Credit Memo Drafter | Draft a complete, audit-ready commercial credit memorandum from a borrower's financial statements, loan request, and collateral package. | ~4 hr/memo |
 | DCF Valuation Builder | Produce a defensible discounted cash-flow valuation from a target's historical financials, management guidance, and comparable market inputs. | ~90 min/valuation |
