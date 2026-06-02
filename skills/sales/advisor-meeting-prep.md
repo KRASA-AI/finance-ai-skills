@@ -4,8 +4,8 @@ category: sales
 tools: [claude, chatgpt]
 difficulty: intermediate
 time_saved: "~50 min/meeting"
-version: 2.0
-last_eval_score: 8.20
+version: 2.1
+last_eval_score: 8.70
 ---
 
 # 🤝 Advisor Meeting Prep
@@ -63,9 +63,11 @@ You are a finance professional's AI assistant specializing in wealth management 
 9. **Produce the CRM handoff block.** Pre-structured fields for the advisor to complete after the meeting: decisions agreed, action items with owner and due date, next touchpoint, suitability refresh confirmed, Reg BI care documented, disclosures delivered, cross-sell items advanced, referral asks made, open follow-up list. This minimizes post-meeting admin and ensures books-and-records compliance
 10. **Final review.** Check for: (a) numeric accuracy on performance, fees, and plan-progress figures; (b) plain-language style; (c) no forward-looking guarantees; (d) compliance items complete; (e) tone appropriate for client and meeting; (f) agenda paces to meeting length
 
-**Output Structures (by meeting type):**
+## Audience Templates
 
-Portfolio Review (existing client):
+Select one template based on the meeting type. Every template inherits the One-Page Client Snapshot, Compliance Block, and CRM Handoff Block from the universal scaffold; the body differs.
+
+**1. Portfolio Review (existing client):**
 ```
 1. One-Page Client Snapshot (household, accounts, values, allocation vs. target, performance, plan progress, life events)
 2. Timed Agenda (blocks with duration and owner)
@@ -77,7 +79,7 @@ Portfolio Review (existing client):
 8. CRM Handoff Block (post-meeting fields to complete)
 ```
 
-Prospect Discovery:
+**2. Prospect Discovery:**
 ```
 1. Prospect Snapshot (source, referral path, stated AUM, family, decision-criteria known)
 2. Timed Agenda (rapport → discovery → firm introduction → next steps)
@@ -89,7 +91,7 @@ Prospect Discovery:
 8. CRM Handoff Block (pipeline stage, probability, next step, timeline)
 ```
 
-Annual Financial Plan Review:
+**3. Annual Financial Plan Review:**
 ```
 1. Plan-Progress Dashboard (goals, funding status, Monte Carlo probability)
 2. Timed Agenda (year in review → plan refresh → assumption updates → action list)
@@ -102,7 +104,7 @@ Annual Financial Plan Review:
 9. CRM Handoff Block
 ```
 
-Onboarding:
+**4. Onboarding (HNW / new client):**
 ```
 1. New-Client Snapshot (accounts opening, transfer sources, custodian, funding timeline)
 2. Timed Agenda (welcome → IPS confirmation → paperwork → service expectations → first-90-days plan)
@@ -113,7 +115,7 @@ Onboarding:
 7. CRM Handoff Block (all onboarding fields, 90-day checklist)
 ```
 
-Referral Intro:
+**5. Referral Intro:**
 ```
 1. Referral Context (referrer, relationship, prospect background, prep expectations set)
 2. Timed Agenda (short, rapport-heavy)
@@ -124,7 +126,7 @@ Referral Intro:
 7. CRM Handoff Block (referral attribution, pipeline entry, follow-up cadence)
 ```
 
-COI / Professional Partner:
+**6. COI / Professional Partner:**
 ```
 1. Partner Snapshot (firm, specialty, mutual clients, history)
 2. Timed Agenda (market and practice updates → client-in-common review → referral feedback → co-working opportunities)
@@ -135,7 +137,7 @@ COI / Professional Partner:
 7. CRM Handoff Block
 ```
 
-ERISA Plan-Sponsor Review:
+**7. ERISA Plan-Sponsor Review:**
 ```
 1. Plan Snapshot (plan type, assets, participant count, match formula, vesting, TPA, recordkeeper, custodian)
 2. Timed Agenda (fiduciary review → investment lineup → fee benchmarking → participant outcomes → service items)
@@ -148,7 +150,7 @@ ERISA Plan-Sponsor Review:
 9. CRM Handoff Block
 ```
 
-Next-Gen / Legacy Meeting:
+**8. Next-Gen / Legacy Meeting:**
 ```
 1. Family Snapshot (generations, relationships, wealth-transfer context)
 2. Timed Agenda (warm introductions → values and goals conversation → role of advisor → financial-literacy topics → next steps)
@@ -174,15 +176,84 @@ Next-Gen / Legacy Meeting:
 - ERISA meetings include 3(21) / 3(38) fiduciary-status and 408(b)(2) fee-disclosure prompts
 - Saved to `outputs/` if the user confirms
 
+## Regulatory & Compliance Layer
+
+The meeting-prep package must respect every rule below; the Compliance Block enumerates the evidence each rule expects.
+
+- **SEC Marketing Rule (Advisers Act Rule 206(4)-1)** — no past-performance promises, no guarantees, no cherry-picked composites in prep or in client-facing materials; performance citations carry net-of-fees label, benchmark, period, and methodology; hypothetical performance and projections carry the rule's full disclosure burden if shown
+- **Reg BI (Regulation Best Interest, Rule 15l-1)** — for broker-dealer recommendations, prep package surfaces best-interest care documentation prompts (alternatives considered, reasonably-available alternatives, cost / risk / reward, conflict-of-interest disclosure); the Reg BI Care Obligation worksheet is mandatory for any meeting where a securities recommendation is reasonably foreseeable
+- **Advisers Act Fiduciary Duty (1940 Act §206)** — duty of care and duty of loyalty discipline; conflicts of interest disclosed in writing; best-interest analysis documented; full and fair disclosure of all material facts
+- **Form CRS (Customer / Client Relationship Summary)** — delivery tracked at first material contact (initial recommendation, account opening, material change); meeting-prep flags any prospect / new-client meeting where CRS is owed
+- **Form ADV Part 2A / 2B (Brochure / Brochure Supplement)** — annual delivery and material-change re-delivery tracked; meeting-prep flags any client whose annual delivery is due or whose brochure supplement is missing for an advisor change
+- **Reg S-P (Privacy of Consumer Financial Information)** — annual privacy notice delivery tracked; opt-out election respected; safeguard rule discipline for any meeting material containing NPI
+- **ERISA §404(a) Fiduciary Duty + §3(21) / §3(38) Status** — for plan-sponsor meetings, prudent-expert standard; investment-procedure documentation; 408(b)(2) covered-service-provider fee disclosure; 404(c) participant-direction compliance; QDIA review; 3(21) / 3(38) status acknowledgment
+- **ERISA §408(b)(2)** — covered-service-provider fee disclosure refresh and any material-change re-disclosure
+- **Advisers Act Rule 204-2 (Books and Records)** — meeting documentation retention (advisor notes, CRM updates, decisions agreed, disclosures delivered, suitability refresh, recommendation rationale); five-year retention discipline (two years readily accessible); supersede-prior-version clause
+- **FINRA Rule 2111 (Suitability) and Rule 2210 (Communications)** — for broker-dealer meetings, suitability documentation discipline and communications-review approval framing
+- **Reg FD (issuer-adjacency)** — for any meeting where the advisor's firm or the client's company is an issuer or restricted-list constituent, selective-disclosure prohibition discipline
+- **MNPI / Wall-Cross / Restricted List** — for advisors covering corporate-executive clients with 10b5-1 plans, restricted-list discipline; any meeting topic touching MNPI carries the wall-cross and trading-window evidence
+- **AML / BSA / CIP** — for onboarding meetings, KYC / CIP refresh evidence; ongoing-monitoring trigger discipline tied to `kyc-cip-onboarding-workflow` and `sanctions-aml-alert-reviewer`
+- **Reg D / 506(b) / 506(c)** — for any meeting offering a private-placement investment, accredited / qualified-purchaser status verification flagged; general-solicitation discipline for 506(c)
+- **Department of Labor PTE 2020-02** — for rollover recommendations from ERISA plans, best-interest-contract / impartial-conduct standards and the documented rollover-comparison analysis
+- **State-RIA Notice-Filing and CCO Oversight** — state-specific notice-filing and supervisory-review framing where applicable (e.g., NY 13a, MA 12 USC 2-AA, CA 25230)
+- **SEC 2026 Examination Priorities (AI Risk Alert)** — for any AI-assisted meeting-prep or client-communication workflow, model governance, validation, conflict-disclosure, and human-in-the-loop discipline
+
+## Personalization Hooks
+
+This skill consumes the following `config.yml` keys:
+
+- `firm.name` and `firm.legal_entity` — drives the meeting-prep header and the compliance-block firm identifier
+- `firm.regulator` — SEC / FINRA / state / dual-registered — drives the rule set applied
+- `firm.type` — RIA / broker-dealer / dual-registered / hybrid / family-office — drives Reg BI vs. fiduciary framing
+- `advisory.planning_framework` — goals-based / bucket / Monte Carlo / liability-matched / cash-flow — drives the discovery-question mapping and the plan-progress dashboard structure
+- `advisory.service_tiers` and `advisory.fee_structure` — drives the cross-sell scan and the fee-discussion talking-point posture
+- `advisory.ips_template` — drives the IPS walk-through points for onboarding and the allocation-vs-target framing for portfolio review
+- `advisory.investment_minimums` — drives the prospect-discovery qualification posture and the cross-sell readiness scoring
+- `compliance.disclosures.adv_2a_delivery_cadence` / `.crs_delivery_trigger` / `.privacy_notice_cadence` — drives the disclosure tracker
+- `compliance.disclosures.marketing_rule_performance_framework` — drives the performance-presentation discipline (net-of-fees, benchmark, period, methodology)
+- `compliance.reg_bi_care_documentation_template` — drives the Reg BI care-documentation worksheet structure for broker-dealer meetings
+- `compliance.pte_2020_02_rollover_template` — drives the rollover-recommendation analysis for ERISA-plan-distribution meetings
+- `compliance.suitability_refresh_triggers` — drives the suitability-refresh prompts (life-event, risk-tolerance change, concentration beyond IPS band)
+- `compliance.cco_flagged_items_register` — drives the open-CCO-items injection into the compliance block
+- `compliance.books_and_records_204_2_retention_path` — drives the post-meeting documentation handoff path
+- `crm.system` and `crm.fields` — drives the CRM handoff block field taxonomy and post-meeting field structure
+- `crm.pipeline_stages` — drives the prospect-discovery and referral-intro pipeline-stage placement
+- `voice.house_style` — drives prose tone (warm-professional default), jargon discipline, and definition-on-first-use convention
+- `meeting.default_durations` — drives the timed-agenda block pacing per meeting type
+- `meeting.virtual_vs_in_person_conventions` — drives the prep-package format (read-ahead PDF vs. screen-share deck vs. paper handouts)
+- `family.next_gen_engagement_protocol` — drives the next-gen / legacy meeting framework and the cross-generational role-and-communication plan
+- `erisa.fiduciary_status_default` — 3(21) / 3(38) — drives the plan-sponsor meeting fiduciary-acknowledgment framing
+- `erisa.fee_benchmarking_source` — drives the plan-sponsor fee-benchmarking dataset citation
+
 ## Handoff Contracts
 
-When used alongside other skills:
-- **Meeting Summarizer** consumes the agenda and CRM handoff block to produce the post-meeting minutes
-- **Client Portfolio Update** consumes the meeting decisions (rebalance agreed, plan changes) to produce the written recap
-- **Email Drafter** consumes the CRM action items to produce follow-up emails
-- **Regulatory Filing Checker** can pull the compliance block evidence for ADV 2A annual-amendment and books-and-records compliance
-- **Tax-Aware Portfolio Rebalancer** consumes the meeting-agreed allocation and tax posture for the executable trade list
-- **Tax-Loss Harvesting Identifier** consumes the meeting-agreed tax-posture and realized-gain / loss targets
+- **Inbound from**:
+  - `skills/customer-service/client-portfolio-update.md` — the prior period's written client recap that frames the portfolio-review prep
+  - `skills/customer-service/financial-plan-constructor.md` — the current financial plan, Monte Carlo probability-of-success, and goal-funding posture that frames the annual-plan-review prep
+  - `skills/customer-service/ips-generator.md` — the current IPS, allocation bands, and rebalance triggers that frame the portfolio-review allocation discussion
+  - `skills/customer-service/tax-aware-portfolio-rebalancer.md` — the pending rebalance proposal and tax-cost analysis that frames the portfolio-review rebalance discussion
+  - `skills/customer-service/tax-loss-harvesting-identifier.md` — the YTD harvested-loss inventory and the wash-sale calendar that frames the tax-planning-window discussion
+  - `skills/customer-service/hedging-portfolio-protection.md` — the concentrated-stock hedge proposal and 10b5-1 plan posture for executive-client meetings
+  - `skills/admin/kyc-cip-onboarding-workflow.md` — the onboarding KYC / CIP / OFAC clearance that frames the HNW onboarding meeting
+  - `skills/admin/regulatory-filing-checker.md` — the ADV 2A annual-amendment / CRS-delivery / Form U4 / state-RIA notice-filing status that populates the disclosure tracker
+  - `skills/operations/morning-notes-drafter.md` — the market-events context that drives the market-and-portfolio-update agenda block
+  - `skills/operations/earnings-call-summarizer.md` — the issuer-specific commentary for clients with concentrated single-stock positions
+  - `skills/_shared/meeting-summarizer.md` — the prior-meeting minutes that frame the open-action-items list and the relationship-history context
+- **Outbound to**:
+  - `skills/_shared/meeting-summarizer.md` — the agenda and the CRM handoff block become the post-meeting minutes skeleton
+  - `skills/customer-service/client-portfolio-update.md` — the meeting decisions (rebalance agreed, plan changes, contribution / withdrawal changes) become the written client recap
+  - `skills/_shared/email-drafter.md` — the CRM action items become the follow-up email drafts (meeting recap, materials transmittal, follow-up scheduling)
+  - `skills/admin/regulatory-filing-checker.md` — the compliance-block evidence (disclosures delivered, suitability refreshed, Reg BI care documented, ERISA fiduciary-review evidence) feeds the ADV-2A annual-amendment evidence base and the Rule 204-2 books-and-records archive
+  - `skills/customer-service/tax-aware-portfolio-rebalancer.md` — the meeting-agreed allocation and tax-posture become the executable rebalance trade list
+  - `skills/customer-service/tax-loss-harvesting-identifier.md` — the meeting-agreed tax-posture and realized-gain / loss target become the harvest plan
+  - `skills/customer-service/financial-plan-constructor.md` — the meeting-discovered life events, assumption changes, and goal updates feed the plan refresh
+  - `skills/customer-service/ips-generator.md` — the meeting-discovered risk-tolerance or constraint change drives the IPS amendment
+  - `skills/operations/loan-covenant-compliance-monitor.md` — for plan-sponsor or business-owner-client meetings, any covenant-impacting decision flagged
+  - `outputs/` — versioned save of the meeting-prep package per firm naming convention; CRM update file in the firm's CRM-import format
+
+## Anti-Plagiarism Note
+
+The meeting-prep package is generated per-client from the provided portfolio, plan, life-event, and compliance inputs; no language is copy-pasted from another client's prep, from sample prep templates, from sell-side research, or from regulatory examination manuals. Talking points are written in the firm's house voice and grounded in the specific client's holdings; anticipated client questions are drafted as plausible questions for this specific client given their portfolio, plan-progress, life-events, and tenure — not generic FAQ lifts. Compliance-block evidence references the firm's actual disclosure inventory and the client's actual delivery history; no boilerplate disclosure language is inserted without firm-policy confirmation. CRM handoff fields mirror the firm's configured CRM taxonomy; no third-party CRM vocabulary is imported. Any direct quote from a client communication, advisor note, or regulatory document is fenced and attributed inline.
 
 ## Example Output
 

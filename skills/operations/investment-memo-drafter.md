@@ -5,7 +5,7 @@ tools: [claude, chatgpt]
 difficulty: intermediate
 time_saved: "~60 min/memo"
 version: 2.1
-last_eval_score: 8.20
+last_eval_score: 8.70
 ---
 
 # 📊 Investment Memo Drafter
@@ -196,15 +196,27 @@ RIA Portfolio Addition (for wealth-management IC):
 - Diligence-open-items list has a named owner and target close date for each item
 - Saved to `outputs/` if the user confirms
 
-## Compliance Layer
+## Regulatory & Compliance Layer
 
-- **MNPI hygiene:** for public-equity memos, attest that no MNPI was used in the analysis; flag any expert-network engagement and the compliance-channeled call notes
-- **Marketing Rule 206(4)-1:** for any performance, projection, or hypothetical shown in advised-client-facing memos, apply the Marketing Rule disclosure burden
-- **Best-interest care:** for advised-client memos, document the best-interest analysis and the alternatives considered
-- **Reg D / 506(b) / 506(c):** for private placements, accredited / qualified-purchaser status flagged
-- **FCPA / OFAC:** name-screen attestation in the disclosures block
-- **ERISA:** for plan-fiduciary investing decisions, document fiduciary-process review
-- **Books-and-records (Advisers Act Rule 204-2):** memo and IC-vote record retained per firm policy
+The memo must respect every rule below; the Disclosures / Compliance Block enumerates the evidence each rule expects.
+
+- **MNPI / Material-Non-Public-Information Policy** — for public-equity memos (long and short), attest that no MNPI was used in the analysis; flag any expert-network engagement with the compliance-channeled call notes; wall-cross discipline for any pre-deal or insider context; restricted-list and trading-window discipline
+- **SEC Marketing Rule (Advisers Act Rule 206(4)-1)** — for any performance, projection, hypothetical, or model-portfolio shown in advised-client-facing or LP-facing memos, apply the rule's full disclosure burden (net-of-fees, gross-of-fees parallel, time-period, methodology, predecessor-firm portability, hypothetical-performance warnings)
+- **Advisers Act Fiduciary Duty (1940 Act §206)** — for advised-client memos, document the best-interest analysis, the alternatives considered, the duty-of-care discipline, and the duty-of-loyalty conflict identification
+- **Reg BI (Regulation Best Interest, Rule 15l-1)** — for broker-dealer-recommended securities, document care-obligation evidence (reasonably-available alternatives, cost / risk / reward, conflict identification)
+- **Reg D / 506(b) / 506(c)** — for private placements, accredited / qualified-purchaser / qualified-client status flagged; general-solicitation discipline for 506(c); bad-actor (Rule 506(d)) screen documented
+- **Investment Company Act (1940 Act) §3(c)(1) / §3(c)(7)** — for private-fund offerings, beneficial-owner-count and qualified-purchaser-status discipline
+- **FCPA / OFAC / EU Sanctions / UK OFSI** — name-screen attestation on company, sponsor, principals, beneficial owners, and counterparty stack in the disclosures block
+- **ERISA Fiduciary Process** — for plan-fiduciary investing decisions, document the prudent-expert review, the procedural-prudence record, and the 408(b)(2) covered-service-provider context
+- **Advisers Act Rule 204-2 (Books and Records)** — memo, IC-vote record, voting-conflict-recusal log, and underlying valuation work retained per firm policy with the supersede-prior-version clause
+- **FINRA Rule 5121 (Conflicts of Interest)** — for affiliated-issuer or sponsor-conflict memos, the qualified-independent-underwriter / independent-pricing-evidence framing where applicable
+- **SEC Rule 17a-3 / 17a-4** — for broker-dealer-recommended securities, books-and-records retention discipline
+- **Reg FD** — for any public-issuer-adjacent memo, selective-disclosure prohibition discipline; the memo is internal-only or distributed-only through Reg-FD-compliant channels
+- **SEC Rule 10b5-1 / 10b5-2** — for any insider-context memo, the duty-of-trust-or-confidence framing
+- **DOL PTE 2020-02** — for rollover and qualified-plan-distribution recommendation memos, the impartial-conduct standards and the documented rollover-comparison analysis
+- **NYDFS Part 500 (Cybersecurity)** — for memos containing client / portfolio NPI distributed electronically, the access-control and encryption discipline
+- **SEC 2026 Examination Priorities (AI Risk Alert)** — for any AI-assisted memo drafting, model governance, valuation-input validation, conflict-disclosure, and human-in-the-loop discipline
+- **GIPS (Global Investment Performance Standards)** — for any composite-performance presentation in the memo, GIPS-compliant-presentation framework if the firm has claimed compliance
 
 ## Handoff Contracts
 
@@ -224,16 +236,32 @@ RIA Portfolio Addition (for wealth-management IC):
 
 This skill consumes the following `config.yml` keys:
 
-- `fund.strategy` / `fund.mandate` → drives template selection, sector / stage / geography filters in the analysis, and the *why us* pillar
-- `fund.ic.members` → drives the IC-vote block (named members)
-- `fund.ic.voting_rule` / `fund.ic.quorum` → drives the vote-record template
-- `fund.ic.conviction_taxonomy` → used verbatim for the conviction rating
-- `fund.ic.sizing_matrix` → drives the sizing recommendation
-- `fund.recommendations` → used verbatim for the recommended action
-- `fund.memo_template` → used as the layout skeleton when a firm-specific template exists
-- `fund.ic.distribution` → drives the audience-tagging block at the top of the memo
-- `voice.house_style` → drives prose tone, active vs. passive, exec-summary length, and charts policy
-- `compliance.memo_disclosures` → drives the disclosure / compliance block (related-party, conflict, FCPA / OFAC, expert-network, MNPI, Marketing-Rule)
+- `fund.strategy` and `fund.mandate` — drives template selection, sector / stage / geography filters in the analysis, and the *why us* pillar (sector themes, geography, check-size band, stage, sector restrictions, ESG / mission constraints)
+- `fund.investment_period` and `fund.harvest_period` — drives the new-investment vs. follow-on framing and the exit-environment risk discussion
+- `fund.target_irr` and `fund.target_moic` — drives the returns-case benchmark in the valuation section
+- `fund.ic.members` — drives the IC-vote block (named members, voting roles, observer roles)
+- `fund.ic.voting_rule` and `fund.ic.quorum` — drives the vote-record template structure
+- `fund.ic.conviction_taxonomy` — used verbatim for the conviction rating (e.g., Strong Conviction / Conviction / Moderate / Watch)
+- `fund.ic.sizing_matrix` — drives the sizing recommendation (conviction × thesis-strength × position-band intersection)
+- `fund.ic.conflict_recusal_rules` — drives the IC-member recusal flags in the vote block
+- `fund.ic.voting_cadence` and `fund.ic.distribution` — drives the meeting-cadence framing and the audience-tagging block at the top of the memo
+- `fund.recommendations` — used verbatim for the recommended action (Strong Buy / Buy / Hold / Pass / Watch; or Approve / Approve-with-conditions / Decline / Defer for PE; or Add-to-Position / Initiate / Trim / Exit for public hedge)
+- `fund.memo_template` — used as the layout skeleton when a firm-specific template exists; falls back to the asset-class default
+- `fund.lp_attribution_convention` — drives the sponsor / LP-attribution credit in co-investment and syndication memos
+- `fund.ownership_target_band` — drives the ownership-math discussion in VC / growth memos
+- `fund.concentration_limit` — drives the position-sizing ceiling and the diversification check
+- `fund.holding_period_assumption` — drives the exit-timing assumption in the returns-case
+- `voice.house_style` — drives prose tone (active vs. passive, exec-summary length, charts policy, tense convention, hedging discipline)
+- `compliance.memo_disclosures` — drives the disclosure / compliance block (related-party log, conflict-of-interest log, FCPA / OFAC name-screen procedure, expert-network engagement disclosure, MNPI attestation, Marketing-Rule disclosure, Reg D bad-actor screen)
+- `compliance.related_party_register` — drives the related-party-disclosure section (any prior firm involvement with the company, sponsor, principals, beneficial owners, or reciprocal LP relationship)
+- `compliance.expert_network_policy` — drives the expert-network-call-notes attestation and the compliance-channel reference
+- `compliance.cco_signoff_required` — drives the CCO sign-off line for advised-client-facing and LP-facing memos
+- `compliance.books_and_records_204_2_retention_path` — drives the post-IC archive path
+- `firm.gips_compliance_claim` — drives the GIPS-compliant-presentation framing for any composite-performance display
+
+## Anti-Plagiarism Note
+
+The memo is a synthesis generated from the provided deal notes, financial data, comp set, and risk inputs; no language is copy-pasted from another deal's memo, from a CIM, from a DDQ, from sell-side research, from sponsor pitch materials, or from sample template libraries. Every quoted block from CIM / DDQ / sell-side report / sponsor pitch is fenced and attributed inline. Thesis pillars are written in the firm's house voice and grounded in this specific opportunity's evidence; risk assessments are calibrated to this specific situation, not lifted from a sector boilerplate. Comparable analysis names the specific reason this comp set was chosen and the reason specific names were included or excluded; no generic comp-table boilerplate. IC-vote-block templates use the firm's configured taxonomy verbatim and never invent new vocabulary. The disclosure block references the firm's actual related-party register, conflict log, and name-screen procedure; no boilerplate disclosure language is inserted without firm-policy confirmation.
 
 ## Example Output
 

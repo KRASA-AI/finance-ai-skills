@@ -4,8 +4,8 @@ category: operations
 tools: [claude, chatgpt]
 difficulty: advanced
 time_saved: "~3 hr/trading day"
-version: 1.0
-last_eval_score: null
+version: 2.1
+last_eval_score: 8.70
 ---
 
 # 🔄 Trade Lifecycle Tracker
@@ -116,16 +116,36 @@ You are a finance professional's AI assistant specializing in trading operations
 
 The following `config.yml` keys customize this skill:
 
-- `firm.type` — broker-dealer / RIA / asset-manager / hedge-fund / multi-strategy
-- `firm.regulator` — SEC / FINRA / CFTC / NFA / FCA / state
-- `trading.oms` — OMS vendor name and integration mode
-- `trading.ems` — EMS vendor name
-- `trading.prime_brokers` — list of prime-broker relationships with contact roster
-- `trading.custodians` — custodian list with DTC participant numbers
-- `trading.cutoffs` — same-day affirmation cutoff, allocation cutoff, FX cutoff per currency
-- `compliance.exception_escalation` — severity-to-owner matrix
-- `compliance.error_account` — error-account convention and approval authority
-- `reporting.cat_reporter_id` — firm CAT identifier and submission cadence
+- `firm.type` — broker-dealer / RIA / asset-manager / hedge-fund / multi-strategy / introducing-broker — drives the rule set applied (Rule 15c3-5 broker-dealer-only, Reg SHO locate-vs-locate-aggregator, CAT reporter-ID applicability)
+- `firm.regulator` — SEC / FINRA / CFTC / NFA / FCA / ASIC / MAS / state — drives the cross-border best-execution and reporting overlay
+- `firm.legal_entity_register` — entity-by-entity LEI, MIC, CAT-reporter-ID, FCM / introducing-broker / clearing-broker capacity flags — drives the entity-level reporting taxonomy
+- `trading.oms` — OMS vendor name, integration mode, extract format, and control-total convention — drives the input-perimeter validation
+- `trading.ems` — EMS vendor name and FIX-session topology
+- `trading.desk_register` — desk list (cash equities, options, fixed income, repo, futures, listed FX, crypto-if-permitted) with desk-head and supervisor — drives the per-desk severity ownership
+- `trading.strategy_register` — strategy taxonomy (long-only, long-short, market-making, arb, systematic, RIA-implementation) with PM owner — drives the strategy-by-strategy exception attribution
+- `trading.prime_brokers` — list of prime-broker relationships with contact roster, SDA cutoff per PB, allocation-instruction format
+- `trading.custodians` — custodian list with DTC participant numbers, SSI register, agent-bank mapping per currency
+- `trading.cutoffs` — same-day affirmation cutoff (T+1 SDA), allocation cutoff, FX cutoff per currency, securities-lending recall cutoff, CAT submission cutoff
+- `trading.venue_register` — execution venue MIC codes with venue-class (lit exchange / dark pool / ATS / SI / OTC bulletin) — drives the venue-audit reconciliation
+- `trading.execution_quality_benchmark` — best-execution benchmark methodology (VWAP / arrival / TWAP / IS / market-on-close) and acceptable-tolerance band
+- `compliance.restricted_list_source` — restricted-list system of record (CCO repository / vendor feed) and refresh cadence — drives the pre-trade evidence check
+- `compliance.sanctions_screening_platform` — name-screening platform (e.g., LexisNexis Bridger / Refinitiv World-Check / proprietary) and refresh cadence
+- `compliance.short_locate_aggregator` — Reg SHO locate evidence path (PB-aggregated vs. firm-internal) and locate-retention discipline
+- `compliance.large_trader_id` — Form 13H identifier and the threshold-monitoring routine
+- `compliance.exception_escalation` — severity-to-owner matrix (Critical → COO / CCO; High → Ops Supervisor + Desk Head; Medium → Ops; Low → daily-batch)
+- `compliance.error_account` — error-account convention, four-eyes approval authority matrix, and client-notification triggers per FINRA Rule 11892
+- `compliance.cancel_correct_authority_matrix` — initiator + approver thresholds for as-of, cancel-correct, and trade-allocation-correction
+- `compliance.amlfincen_unusual_trading_typology_library` — pattern library (wash, layering, marking-the-close, spoofing) and AML-Officer escalation discipline
+- `reporting.cat_reporter_id` — firm CAT identifier, submission cadence, and resubmission-policy reference
+- `reporting.mifid_ii_best_execution_template` — RTS 27 / RTS 28 reporting template and top-five-venue compilation cadence (if EU venues touched)
+- `reporting.605_606_aggregator` — Rule 605 / 606 report assembly system and cadence
+- `reporting.focus_x17a5_filing_path` — broker-dealer FOCUS filing path and trigger discipline for any reportable event
+- `voice.house_style` — drives the COO brief, supervisor recap, and audit-pack narrative tone (factual-concise default)
+- `meta.audit_trail_convention` — every state assertion tied to a source (FIX tag, OMS row, central-match status, custody file); rounding convention; signing convention; UTC-offset stamping
+
+## Anti-Plagiarism Note
+
+The trade-lifecycle ledger and exception register are generated per-trade and per-exception from the actual order, fill, allocation, central-match, and custody data provided; no language is copy-pasted from FIX-protocol dictionaries, from vendor (OMS / EMS / central-match) documentation, from FINRA / SEC examination manuals, from sample compliance policies, or from another firm's exception report. Every state assertion is grounded in the source data (FIX tag value, OMS extract row, AllocationReport status, central-match status, custody position file); inferred states are explicitly labeled. Severity classifications are calibrated to the specific exception's facts (notional at risk, age in business days, regulatory reportability, client-impact) rather than lifted from generic exception-severity boilerplate. Books-and-records pointers reference the firm's actual blotter / archive paths; no third-party-archive vocabulary is imported. Per-trade commentary lines are generated from the data; cancel-correct narrative is constructed from the actual initiator / approver / timestamp / reason-code evidence and never auto-generated to mask a manual override.
 
 ## Example Output
 
@@ -133,11 +153,24 @@ The following `config.yml` keys customize this skill:
 
 ## Handoff Contracts
 
-**Inbound:** Receives parent-order genesis from PM / portfolio-construction systems and from `skills/operations/morning-notes-drafter.md` trade ideas; receives execution detail from OMS / EMS feeds.
-
-**Outbound:**
-- `skills/operations/financial-model-documenter.md` — clean trade-state ledger for end-of-day P&L attribution and SR 11-7 model-input validation
-- `skills/admin/regulatory-filing-checker.md` — any reportable event flagged (Form U4 DRP, FOCUS, large-trader, beneficial ownership) hands off here
-- `skills/customer-service/client-portfolio-update.md` — affirmed allocations feed the per-client position update
-- `skills/_shared/email-drafter.md` — exception escalation drafts (prime-broker chase, counterparty DK resolution, client error-correction notice)
-- `skills/_shared/meeting-summarizer.md` — daily ops huddle minutes, trade-error postmortem
+- **Inbound from**:
+  - `skills/operations/morning-notes-drafter.md` — trade ideas and catalyst calendar that frame the order-genesis context
+  - `skills/operations/investment-thesis-tracker.md` — position-thesis state that frames the parent-order generation rationale
+  - `skills/customer-service/tax-aware-portfolio-rebalancer.md` — executable rebalance trade list that becomes parent-order input
+  - `skills/customer-service/tax-loss-harvesting-identifier.md` — harvest trade list with wash-sale calendar that becomes parent-order input with the 30-day re-entry block
+  - `skills/customer-service/hedging-portfolio-protection.md` — hedge-execution trade list (options, swaps, collars, 10b5-1 plan trades) that becomes parent-order input with the wall-cross and trading-window evidence
+  - `skills/admin/sanctions-aml-alert-reviewer.md` — sanctions-cleared counterparty status that frames the OFAC pre-trade-screen evidence
+  - `skills/admin/trade-surveillance-reviewer.md` — surveillance-cleared pattern status that frames the AML / unusual-trading-pattern pre-trade posture
+  - `skills/admin/kyc-cip-onboarding-workflow.md` — account / counterparty KYC clearance that frames the per-account allocation eligibility
+- **Outbound to**:
+  - `skills/operations/financial-model-documenter.md` — clean trade-state ledger for end-of-day P&L attribution and SR 11-7 model-input validation
+  - `skills/admin/regulatory-filing-checker.md` — any reportable event flagged (Form U4 DRP, FOCUS X-17a-5, large-trader Form 13H, beneficial-ownership 13D/G, CAT resubmission, FINRA 4530)
+  - `skills/admin/trade-surveillance-reviewer.md` — completed-trade tape feeds the post-trade surveillance pattern detection
+  - `skills/admin/sanctions-aml-alert-reviewer.md` — completed-trade counterparty activity feeds the AML pattern detection and any SAR-decision case file
+  - `skills/admin/aml-case-triage-evidence-dossier.md` — settlement-fail clusters and unusual-counterparty activity feed the AML triage queue
+  - `skills/customer-service/client-portfolio-update.md` — affirmed allocations feed the per-client position update
+  - `skills/operations/general-ledger-reconciler.md` — settled-trade ledger feeds the cash and security GL reconciliation
+  - `skills/operations/fund-administration-nav-reviewer.md` — affirmed allocation and settled-position ledger feeds the NAV strike validation
+  - `skills/_shared/email-drafter.md` — exception escalation drafts (prime-broker chase, counterparty DK resolution, client error-correction notice, COO daily brief)
+  - `skills/_shared/meeting-summarizer.md` — daily ops huddle minutes, trade-error postmortem, quarterly best-execution-committee minutes
+  - `outputs/` — versioned save of the trade-lifecycle ledger, exception register, and audit-pack per firm naming convention
