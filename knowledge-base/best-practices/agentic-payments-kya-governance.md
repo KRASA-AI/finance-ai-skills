@@ -96,6 +96,8 @@ The pattern is a technique and a governance posture, not a skill on its own. It 
 - FIS + Anthropic Financial Crimes AI Agent (May 2026) — while not itself an agentic-payments deployment, signals the bank-side appetite for agentic-AI workflows that will eventually need KYA governance when extended from compliance-investigation to transaction-execution
 - Fiserv agentOS (May 14 2026) ships an Agentic AML Triage Analysis agent as one of four first-party agents — the same surface that will carry payments-execution agents to widely-available status by August 2026 will carry the audit-trail discipline this note describes
 - Whispers of Wealth red-team study (arXiv 2601.22569, January 2026) is the first published systematic prompt-injection evaluation of a deployed agent-payments protocol — operators should expect public-domain attack literature to accelerate through 2026–2027 in parallel with rollout
+- Visa Agentic Ready (Money20/20 Europe, June 2–4 2026) operationalizes the KYA / issuer-readiness posture: phase one focuses on issuer validation of agent-initiated transactions in controlled production with issuing partners (Commerzbank, Revolut, HSBC UK, Nexi Group, DZ Bank, Bank Leumi, Nationwide, Barclays) and selected merchants — the issuer-side complement to the Know-Your-Agent developer-vetting layer this note describes
+- Experian Agent Operating System (Money20/20 Europe, June 2 2026) extends the same trust-and-orchestration posture into the credit-decisioning surface with embedded governance and explainability — see `governed-data-agentic-layer.md` for the enterprise-data-layer framing
 
 ## Relationship to Adjacent KB Notes
 

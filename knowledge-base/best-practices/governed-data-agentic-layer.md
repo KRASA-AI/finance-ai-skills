@@ -16,6 +16,8 @@ Anthropic's May 5, 2026 financial-services release ships ten reference agents (p
 
 Allvue + RSM publishes the industry-first Agentic AI Capital Operating Model for capital calls on May 7, 2026 with BMO / Amalgamated-Bank-style co-design framing. The agent orchestrates investor-data validation, scenario modeling, notice drafting, journal-entry posting through the Allvue Agentic AI Platform with RSM Fund Services+ as the human-in-the-loop. The same agentic-platform expansion roadmap is announced for fund operations, investor servicing, portfolio management, and document intelligence — each surface using the same governed-data layer.
 
+Experian launches the Agent Operating System within the Ascend Platform at Money20/20 Europe on June 2, 2026 — the clearest credit-bureau-side instance of the pattern to date. Experian frames it as a *trusted agentic operating layer* with identity, access control, data security, and compliance guardrails; *composability* so Experian, client-built, and partner agents interoperate through a common trust, semantic, and orchestration layer without replacing existing technology; *agent-native decisioning* with purpose-built agents that investigate and orchestrate workflows; and — most relevant to KRASA — *embedded governance by design with model risk management and explainability* baked into the layer rather than bolted on. ServiceNow is the first partner integration, connecting its AI agents to the Experian decisioning surface inside existing enterprise workflows. Experian's own research (48% of organizations cite difficulty integrating data into AI workflows; a third each cite poor data lineage and siloed data) names exactly the constraint the governed-data layer answers. The "embedded MRM and explainability" framing is the bridge between this pattern and `agentic-ai-model-risk-management.md` — the data layer is where the model-risk controls and the explainability surface are operationalized.
+
 Wolters Kluwer's adoption signal pegs 44% of finance teams at agentic-AI use in 2026, a 600%-plus year-over-year increase. ChatFin and BlackLine vendor analyses converge on the same architectural pattern: agentic AI must be *tethered to identity, audit trails, and a trusted financial source of truth* before CFOs accept it. The platform-and-MCP-layer surfaces are the response to that constraint.
 
 ## The Architectural Pattern
@@ -66,6 +68,8 @@ The pattern is powerful but introduces six new failure modes that the firm's gov
 
 ## Adoption Signals — 2026
 
+Experian Agent Operating System (Ascend Platform) launched at Money20/20 Europe, June 2, 2026; composable Experian / client / partner agents over a common trust-semantic-orchestration layer; embedded model-risk-management and explainability by design; ServiceNow first partner integration via multi-year partnership.
+
 OneStream Finance Agentic Layer + SensibleAI Agents GA: May 19, 2026.
 
 Anthropic financial-services May 5, 2026 release including LSEG and S&P Global partner plugins; MCP-connector roster expansion (D&B, Experian, Fiscal AI, FMP, Guidepoint, GLG, IBISWorld, SS&C IntraLinks, Third Bridge, Verisk, Moody's MAS); Microsoft 365 GA (Excel / PowerPoint / Word; Outlook coming soon) with shared-context across surfaces.
@@ -94,4 +98,4 @@ CFA Institute "Agentic AI for Finance" research roundup confirming the pattern's
 
 ## Anti-Plagiarism Note
 
-This note is composed from public press releases, vendor-product documentation, regulatory guidance, and industry-research roundups. No verbatim text was lifted from OneStream, Anthropic, Allvue, RSM, FIS, Wolters Kluwer, ChatFin, BlackLine, Kognitos, CFA Institute, or any third-party publication. Architectural framing is the KRASA-finance interpretation of the convergent pattern; regulator citations reference the public rule and section only.
+This note is composed from public press releases, vendor-product documentation, regulatory guidance, and industry-research roundups. No verbatim text was lifted from OneStream, Anthropic, Allvue, RSM, FIS, Experian, ServiceNow, Wolters Kluwer, ChatFin, BlackLine, Kognitos, CFA Institute, or any third-party publication. Architectural framing is the KRASA-finance interpretation of the convergent pattern; regulator citations reference the public rule and section only.
