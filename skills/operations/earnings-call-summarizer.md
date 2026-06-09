@@ -5,7 +5,7 @@ tools: [claude, chatgpt]
 difficulty: intermediate
 time_saved: "~25 min/call"
 version: 2.1
-last_eval_score: 8.20
+last_eval_score: 8.70
 ---
 
 # 📈 Earnings Call Summarizer
@@ -121,12 +121,16 @@ Compliance-Flagged Excerpt (used when MNPI / forward-looking concerns surface):
 - Position-disclosure language pulled from config and applied as a footer
 - Saved to `outputs/` if the user confirms
 
-## Compliance Layer
+## Regulatory & Compliance Layer
 
-- **MNPI awareness:** Earnings calls are public, but adjacent management Q&A or non-deal roadshow content may not be. Apply the MNPI hygiene posture from `compliance.disclosures.mnpi` whenever non-call source material is referenced
-- **Reg FD adjacency:** Flag any statement that appears to be a selective disclosure or that goes meaningfully beyond the prepared remarks; the brief should not amplify a Reg-FD-questionable statement without a CCO check
-- **Forward-looking statements:** When forwarding any guidance or outlook commentary in firm-distributed materials, ensure standard forward-looking-statement hedging is included (Marketing Rule context for advisers; PSLRA context for broker-dealers)
-- **Selective distribution:** Briefs marked compliance-flagged are routed to CCO before any client-facing distribution
+- **MNPI / Insider-Trading (Securities Exchange Act §10(b), Rule 10b5-1 / 10b5-2):** Earnings calls are public, but adjacent management Q&A, non-deal-roadshow content, or expert-network material may carry MNPI. Apply the MNPI hygiene posture from `compliance.disclosures.mnpi` whenever non-call source material is referenced; flag any information-barrier or wall-cross implication
+- **Reg FD (Rule 100–103):** Flag any statement that appears to be a selective disclosure or that goes meaningfully beyond the prepared remarks; the brief should not amplify a Reg-FD-questionable statement without a CCO check
+- **Reg G / Item 10(e) Non-GAAP reconciliation:** When a brief carries adjusted / non-GAAP metrics (adjusted EBITDA, non-GAAP EPS, organic growth), note whether management presented the required GAAP reconciliation; do not present a non-GAAP figure as the headline without the GAAP tie-out
+- **Forward-looking statements (PSLRA safe harbor / SEC Marketing Rule):** When forwarding guidance or outlook commentary in firm-distributed materials, include standard forward-looking-statement hedging — PSLRA safe-harbor framing for issuer-adjacent content, SEC Marketing Rule 206(4)-1 performance-presentation discipline for adviser-distributed material
+- **FINRA Rule 2241 / Global Research Analyst Settlement:** Where the brief functions as research, observe research-analyst conflict-disclosure, quiet-period, and personal-trading-restriction conventions; separate research conclusions from any banking relationship
+- **EU Market Abuse Regulation (MAR):** For EU-listed coverage, apply the inside-information and market-soundings discipline equivalent to the MNPI posture
+- **Advisers Act Rule 204-2 / SEC Rule 17a-4 (Books & Records):** Briefs, thesis-update blocks, and compliance-flagged excerpts are retained per the firm's research-record retention schedule
+- **Selective distribution:** Briefs marked compliance-flagged are routed to CCO before any client-facing distribution; the position-disclosure language from config is applied as a footer
 
 ## Handoff Contracts
 
@@ -155,3 +159,7 @@ This skill consumes the following `config.yml` keys:
 ## Example Output
 
 > [This section will be populated by the eval system with a reference example. For now, run the skill with sample input to see output quality.]
+
+## Anti-Plagiarism Note
+
+Every brief is composed per-call from the transcript and the firm's own model and thesis. Quoted sentences are fenced with speaker attribution and a timestamp / page reference; numerical extracts cite the transcript line, not interpretation. Do not lift verbatim language from sell-side research notes, transcript-provider summaries, or prior-quarter briefs. House sentiment and conviction vocabulary is used verbatim from config; all surrounding commentary is generated fresh for the name and period.

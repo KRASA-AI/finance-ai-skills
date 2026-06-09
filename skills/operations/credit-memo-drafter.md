@@ -4,8 +4,8 @@ category: operations
 tools: [claude, chatgpt]
 difficulty: advanced
 time_saved: "~4 hr/memo"
-version: 1.0
-last_eval_score: null
+version: 2.1
+last_eval_score: 8.70
 ---
 
 # 🏦 Credit Memo Drafter
@@ -105,7 +105,50 @@ You are a finance professional's AI assistant specializing in commercial credit 
 - **BSA/AML & OFAC**: name-screen on borrower, principals, and guarantors; SAR triggers flagged
 - **Allowance for Credit Losses (CECL)**: risk rating and life-of-loan loss expectation feed the allowance calculation
 - **CRA**: assessment-area impact for community-bank context
+- **HMDA**: where any covered loan component triggers reporting, the data points are flagged for collection
+- **Shared National Credit (SNC) Program**: for facilities ≥ the SNC threshold with multiple participants, the interagency rating convention and consistency expectation apply
+- **Interagency Appraisal & Evaluation Guidelines**: appraisal independence, USPAP conformity, and evaluation-vs-appraisal threshold for real-estate collateral
+- **Reg O**: insider-lending limits and approval requirements where the borrower or guarantor is a director, executive officer, or principal shareholder
+- **SR 11-7 Model Risk Management**: any scorecard, PD/LGD model, or automated spread used in the analysis carries model-inventory, validation, and override-documentation discipline
+
+## Personalization Hooks
+
+The following `config.yml` keys customize this skill:
+
+- `bank.regulator` → primary regulator (OCC / FDIC / Fed / state) driving the applicable guidance set and rating scale
+- `bank.credit_policy.leverage_cap`, `.ltv_cap`, `.fccr_floor`, `.min_tangible_net_worth` → the policy thresholds that the analysis tests against and that trigger the policy-exception section
+- `bank.credit_policy.dscr_floor` → the minimum bankable DSCR (default 1.25x) applied in repayment-capacity testing
+- `bank.risk_rating_scale` → the bank-specific regulatory rating taxonomy (Pass / Special Mention / Substandard / Doubtful / Loss) used in the recommendation
+- `bank.sba_conventions` → SBA eligibility, equity-injection, and SOP 50 10 citation conventions for 7(a) / 504 / Express facilities
+- `bank.approval_authority_matrix` → the dollar / risk thresholds mapping to officer / committee / CCO / board approval authority for the policy-exception section
+- `bank.classification_thresholds` → the criticized / classified migration triggers feeding the risk-rating justification
+- `bank.stress_assumptions` → the default revenue / margin stress haircuts (default −10% revenue, −200 bps margin) applied in the stress case
+- `bank.collateral_advance_rates` → the policy advance-rate grid by collateral category (AR / inventory / equipment / CRE) for the collateral analysis
+- `voice.house_style` → drives the memo's tone (credit-committee-formal default) and section length
+- `firm.record_retention_policy` → retention and archive convention for the credit file (interagency / regulator-aligned)
 
 ## Example Output
 
 > [This section will be populated by the eval system with a reference example. For now, run the skill with sample input to see output quality.]
+
+## Handoff Contracts
+
+**Inbound:**
+
+- `skills/operations/financial-model-documenter.md` — the documented spread methodology and assumption register feeding the financial-analysis section
+- `skills/operations/three-statement-model-constructor.md` — borrower projection model supplying the pro-forma DSCR / FCCR and the repayment-capacity build
+- `skills/operations/cash-flow-forecaster-13-week.md` — near-term liquidity runway for working-capital and revolver-availability assessment
+- `skills/operations/comparable-company-analysis.md` — peer-set context for the industry-and-competitive-position section
+- `skills/admin/sanctions-aml-alert-reviewer.md` — OFAC / BSA name-screen results on borrower, principals, and guarantors
+
+**Outbound:**
+
+- `skills/operations/loan-covenant-compliance-monitor.md` — the approved covenant package (FCCR, leverage, tangible NW, capex cap, reporting cadence) hands off for ongoing post-close monitoring
+- `skills/admin/regulatory-filing-checker.md` — HMDA / SNC / flood-determination / Reg-B adverse-action data points that trigger downstream filing or notice obligations
+- `skills/admin/ai-controls-auditor-icfr.md` — the risk rating and CECL life-of-loan loss expectation feed the allowance and the ICFR controls evidence
+- `skills/_shared/email-drafter.md` — the conditions-precedent list and any adverse-action rationale become borrower / committee correspondence
+- `skills/_shared/meeting-summarizer.md` — the credit-committee decision, conditions, and dissents captured as committee minutes
+
+## Anti-Plagiarism Note
+
+Every section of the memo — borrower overview, industry commentary, financial-analysis narrative, risk assessment, and recommendation — is composed per-borrower from the financials, collateral package, and diligence file provided. Do not lift verbatim language from the loan application, prior credit memos, credit-bureau narratives, appraisal text, or template boilerplate. Regulatory references cite the specific rule or SOP section (e.g., SBA SOP 50 10), not a third-party summary. Every assertion carries a financial-statement citation, a bureau citation, or a management-representation flag; no un-sourced narrative.

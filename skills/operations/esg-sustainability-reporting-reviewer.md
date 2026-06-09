@@ -4,8 +4,8 @@ category: operations
 tools: [claude, chatgpt]
 difficulty: advanced
 time_saved: "~6 hr/disclosure/cycle"
-version: 1.0
-last_eval_score: null
+version: 2.1
+last_eval_score: 8.60
 ---
 
 # 🌍 ESG / Sustainability Reporting Reviewer

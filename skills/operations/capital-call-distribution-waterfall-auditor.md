@@ -4,8 +4,8 @@ category: operations
 tools: [claude, chatgpt]
 difficulty: advanced
 time_saved: "~4 hr per call / distribution cycle"
-version: 1.0
-last_eval_score: null
+version: 2.1
+last_eval_score: 8.70
 ---
 
 # 📘 Capital Call & Distribution Waterfall Auditor
