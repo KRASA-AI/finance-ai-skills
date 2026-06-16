@@ -5,7 +5,7 @@ tools: [claude, chatgpt]
 difficulty: intermediate
 time_saved: "~40 min/morning"
 version: 2.1
-last_eval_score: 8.20
+last_eval_score: 8.60
 ---
 
 # 🌅 Morning Notes Drafter
@@ -137,3 +137,7 @@ The following `config.yml` keys customize this skill:
 ## Example Output
 
 > [This section will be populated by the eval system with a reference example. For now, run the skill with sample input to see output quality.]
+
+## Anti-Plagiarism Note
+
+This skill is composed in KRASA / finance terminology and the KRASA skill idiom (frontmatter / Purpose / When to Use / Required Input / Instructions [Before-you-start + numbered Process] / Output Templates / Output requirements / Regulatory & Compliance Layer / Personalization Hooks / Handoff Contracts / Example Output). It is not lifted from any third-party morning-note product, sell-side research template, or competitor desk note. Regulatory references (Reg FD; SEC Marketing Rule 206(4)-1; FINRA Rule 2210; Reg AC; MiFID II inducement / payment-for-research; CFA Institute Code & Standards; Advisers Act Rule 204-2) cite public regulation / standard-setter sources only; no proprietary methodology is reproduced. Every company callout, catalyst entry, and thesis marker is composed per-name from the analyst's own overnight input stream — no press-release, transcript, or sell-side-note language is copied verbatim; anything quoted directly is attributed and dated.

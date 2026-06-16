@@ -38,3 +38,5 @@ While KRASA skills are currently single-agent (one skill, one task), the concept
 ## Future Considerations
 
 As AI platforms add native multi-agent support, KRASA skills could evolve into composable agent components. Design skills with clean inputs/outputs to enable future orchestration.
+
+> **Deeper companion:** see `multi-agent-orchestration-finance.md` for the production topologies (supervisor-specialist, sequential pipeline, debate-and-consensus, hierarchical), the safety layers (handoff contracts, loop detection / step limits, least-privilege identity inheritance, human-in-the-loop at irreversible boundaries, immutable tracing), and the evaluation discipline (information-leakage / look-ahead, reliability / faithfulness, execution-grounded safety) that keep multi-agent finance workflows defensible — plus how the patterns compose into KRASA skills and the deferred v2.2 Subagent Composition idiom.

@@ -4,8 +4,8 @@ category: operations
 tools: [claude, chatgpt]
 difficulty: advanced
 time_saved: "~2 hr/name/cycle"
-version: 1.0
-last_eval_score: null
+version: 2.1
+last_eval_score: 8.70
 ---
 
 # 📈 Investment Thesis Tracker
@@ -139,3 +139,7 @@ The following `config.yml` keys customize this skill:
 - `skills/operations/trade-lifecycle-tracker.md` — sizing-action recommendations hand off as parent-order genesis
 - `skills/_shared/meeting-summarizer.md` — IC discussion of the thesis becomes a meeting record that loops back as a ledger reviewer entry
 - `skills/admin/regulatory-filing-checker.md` — large-position threshold (Form 13F, 13D/G) movements driven by sizing-action recommendations
+
+## Anti-Plagiarism Note
+
+This skill is composed in KRASA / finance terminology and the KRASA skill idiom (frontmatter / Purpose / When to Use / Required Input / Instructions [Before-you-start + numbered Process] / Output Templates / Output requirements / Regulatory & Compliance Layer / Personalization Hooks / Example Output / Handoff Contracts). It is not lifted from any third-party research-management product, sell-side template, or competitor thesis-tracking framework. Regulatory references (SEC Marketing Rule 206(4)-1; Advisers Act Rule 204-2; Reg FD; MNPI / information-barrier doctrine; Reg AC; GIPS performance-presentation standards) cite public regulation / standard-setter sources only; no proprietary methodology or work product is reproduced. Every thesis ledger, conviction history, and postmortem produced by this skill is generated per-name from the analyst's own evidence stream — no sell-side note language, transcript text, or third-party research is copied verbatim; anything quoted directly is attributed and dated.

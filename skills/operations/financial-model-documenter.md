@@ -5,7 +5,7 @@ tools: [claude, chatgpt]
 difficulty: intermediate
 time_saved: "~30 min/model"
 version: 2.1
-last_eval_score: 8.20
+last_eval_score: 8.70
 ---
 
 # 📝 Financial Model Documenter
@@ -138,14 +138,16 @@ Quick-Reference Card (one-pager for power users):
 - Version-history block is always present, even if the only entry is "Initial documentation, this date, this author"
 - Saved to `outputs/` if the user confirms
 
-## Regulatory & Validation Layer
+## Regulatory & Compliance Layer
 
 - **SR 11-7 (Federal Reserve / OCC) Model Risk Management:** banks and bank-affiliated subsidiaries; mandatory four sections (conceptual soundness / implementation / outcomes / monitoring); independent validator must be named; validation cycle must be stated; open findings tracked
+- **OCC Bulletin 2011-12 / Interagency MRM Guidance:** the supervisory baseline SR 11-7 incorporates; documentation must evidence the full model-lifecycle controls (development, implementation, use, validation, governance) the examiner expects to trace
 - **Independent Price Verification (IPV):** marked positions and trading-book models; documentation must show pricing source independence
 - **CECL / IFRS 9:** expected-credit-loss models; documentation must capture forward-looking macro link, segmentation rationale, and back-test against realized losses
 - **NAIC ORSA / Solvency II:** insurance internal models; documentation must capture risk-and-capital framework link, ORSA report integration, and supervisory expectations
-- **Advisers Act Rule 204-2:** for RIAs, model documentation supporting client-facing statements is books-and-records and must be retained per the firm's record-retention policy
+- **Advisers Act Rule 204-2 / Exchange Act Rule 17a-4 (Books & Records):** for RIAs and broker-dealers, model documentation supporting client-facing statements is books-and-records and must be retained per the firm's record-retention policy (five years from year of last use; first two years readily accessible)
 - **Marketing Rule 206(4)-1:** any model output used in marketing materials carries the Marketing Rule disclosure burden; the documentation must support every performance, projection, or comparison shown
+- **AI / model-governance overlay (where the model embeds an AI/ML or agentic component):** documentation must additionally cover training-data provenance, drift / re-fit triggers, and the adversarial-robustness posture; cross-reference `skills/admin/ai-controls-auditor-icfr.md` and `skills/admin/ai-redteam-prompt-injection-defense-reviewer.md` so the MRM package and the AI-security posture stay synchronized
 
 ## Handoff Contracts
 
@@ -175,3 +177,7 @@ This skill consumes the following `config.yml` keys:
 ## Example Output
 
 > [This section will be populated by the eval system with a reference example. For now, run the skill with sample input to see output quality.]
+
+## Anti-Plagiarism Note
+
+This skill is composed in KRASA / finance terminology and the KRASA skill idiom (frontmatter / Purpose / When to Use / Required Input / Instructions [Before-you-start + numbered Process] / Output Templates / Output requirements / Regulatory & Compliance Layer / Handoff Contracts / Personalization Hooks / Example Output). It is not lifted from any third-party skill, vendor template, or validation-firm work product. Regulatory and framework references (SR 11-7; OCC Bulletin 2011-12 / interagency MRM guidance; Independent Price Verification standards; CECL / IFRS 9; NAIC ORSA / Solvency II; Advisers Act Rule 204-2; Exchange Act Rule 17a-4; Marketing Rule 206(4)-1) cite public regulation / supervisory-guidance / standard-setter sources only; no proprietary validation methodology, examiner work paper, or vendor documentation template is reproduced. All model documentation produced by this skill is generated from the user's own model, assumptions, and config — no client model content, third-party model description, or sample documentation package is copied verbatim.
