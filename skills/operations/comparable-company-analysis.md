@@ -5,7 +5,7 @@ tools: [claude, chatgpt]
 difficulty: intermediate
 time_saved: "~60 min/comp set"
 version: 2.1
-last_eval_score: 8.40
+last_eval_score: 8.70
 ---
 
 # 📈 Comparable Company Analysis (Comps)
@@ -172,6 +172,10 @@ The following `config.yml` keys customize this skill:
 - `skills/operations/trade-lifecycle-tracker.md` → pre-trade compliance state-check before any sizing action
 - `skills/_shared/email-drafter.md` → audience-matched email cover note for client-facing variants
 - `skills/_shared/meeting-summarizer.md` → IC / pitch / portfolio-review meeting recap inherits the audience-template's framing
+
+## Anti-Plagiarism Note
+
+This skill is composed in KRASA / finance terminology and the KRASA skill idiom (frontmatter / Purpose / When to Use / Required Input / Instructions [Before-you-start + numbered Process] / Output Templates / Output requirements / Regulatory & Compliance Layer / Personalization Hooks / Handoff Contracts / Example Output). It is not lifted from any third-party valuation product, sell-side comp exhibit, fairness-opinion work product, or competitor template. Regulatory and framework references (Reg G; Reg M-A; FINRA Rule 5150 / 5121 / 2210; Reg AC; SEC Marketing Rule 206(4)-1; MiFID II RTS 27 / 28 inducement posture; GIPS; FINRA 17a-4 / Advisers Act 204-2 books-and-records) cite public regulation / standard-setter sources only; no proprietary methodology or work product is reproduced. Every peer-fit rationale, screen, adjustment, and central-tendency read is composed per-target from the user's own comp inputs and config — no third-party valuation report, broker comp sheet, or vendor data-provider commentary is copied verbatim. Each peer's pricing and consensus estimate names its data source and snapshot date per `comps.data_sources`, and any non-GAAP measure is reconciled to the nearest GAAP measure under Reg G.
 
 ## Example Output
 

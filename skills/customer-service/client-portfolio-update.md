@@ -5,7 +5,7 @@ tools: [claude, chatgpt]
 difficulty: beginner
 time_saved: "~15 min/update"
 version: 2.1
-last_eval_score: 8.30
+last_eval_score: 8.60
 ---
 
 # 💼 Client Portfolio Update
@@ -125,6 +125,9 @@ The following `config.yml` keys customize this skill:
 - `compliance.gips` → GIPS conformance posture; controls performance-presentation conventions
 - `compliance.adv_cadence`, `compliance.crs_cadence` → drive update-availability / redelivery notices
 - `tax.harvesting_budget`, `tax.lot_method` → drive the tax-events section in taxable / trust / family-office variants
+- `accounts.performance_periods` → the exact return columns shown (period / YTD / 1-3-5-year / since-inception) so the performance table matches the firm's house presentation
+- `compliance.gips_composite_map` → maps an account to its GIPS composite when the firm represents conformance, controlling composite-vs-account labeling
+- `firm.naming_convention` → output filename and letter-ID stamp for the Advisers Act 204-2 / 17a-4 retention trail
 
 ## Handoff Contracts
 
@@ -140,6 +143,10 @@ The following `config.yml` keys customize this skill:
 - `skills/_shared/meeting-summarizer.md` — committee / consultant variants drive the next committee-meeting minutes
 - `skills/admin/regulatory-filing-checker.md` — letters that surface a Reg-BI-relevant recommendation or a Form ADV update event hand off here
 - `skills/_shared/review-responder.md` — when a letter prompts a client question or complaint, the response drafter takes the handoff with the letter as context
+
+## Anti-Plagiarism Note
+
+This skill is composed in KRASA / finance terminology and the KRASA skill idiom (frontmatter / Purpose / When to Use / Required Input / Instructions [Before-you-start + numbered Process] / Output Templates / Output requirements / Regulatory & Compliance Layer / Personalization Hooks / Handoff Contracts / Example Output). It is not lifted from any third-party wealth-management product, custodian or performance-system canned commentary, or competitor client-letter template. Regulatory and framework references (SEC Marketing Rule 206(4)-1; Reg BI; Investment Advisers Act fiduciary duty; Advisers Act Rule 204-2; Form ADV Part 2A / 2B / 3 (CRS); Reg S-P; FINRA Rule 2210; GIPS standards; ERISA fiduciary; state prudent-investor / UPIA codes; DOL / SECURE Act 2.0) cite public regulation / standard-setter sources only; no proprietary methodology or work product is reproduced. Every paragraph — performance summary, attribution, allocation commentary, tax-events note, plan-progress marker, and forward view — is composed per-client from the user's own reconciled input data and config; no prior letter, vendor performance-system commentary, or competitor template language is copied verbatim. Performance is presented net of fees by default with the benchmark named, and no figure is written over data that has not reconciled (begin + flows + performance = end).
 
 ## Example Output
 

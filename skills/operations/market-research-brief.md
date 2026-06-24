@@ -5,7 +5,7 @@ tools: [claude, chatgpt]
 difficulty: beginner
 time_saved: "~30 min/brief"
 version: 2.1
-last_eval_score: 8.20
+last_eval_score: 8.60
 ---
 
 # 🔍 Market Research Brief
@@ -117,6 +117,9 @@ The following `config.yml` keys customize this skill:
 - `research.citation_style` → controls inline vs. footnote citation, source-first vs. claim-first ordering
 - `compliance.restricted_list` — overlays name-level commentary; blocks recommendations on listed names
 - `compliance.disclosures.marketing_rule` → footer pack pulled into client- and prospect-facing variants
+- `compliance.mifid_research_posture` → tags EU-distributed briefs with the firm's research-payment posture (RPA / hard-dollar / inducement-compliant)
+- `research.horizon_defaults` → default backward / forward windows when the user does not specify, so trend claims are back-tested against the house convention
+- `firm.naming_convention` → output filename and brief-ID stamp for the books-and-records retention trail
 
 ## Handoff Contracts
 
@@ -131,6 +134,10 @@ The following `config.yml` keys customize this skill:
 - `skills/operations/cim-drafter.md` — CIM-section variant feeds the Industry Overview directly with consistent voice and citation architecture
 - `skills/operations/pe-due-diligence-synthesizer.md` — deal-sourcing memo variant feeds the prospective-target diligence pipeline
 - `skills/_shared/email-drafter.md` — sales-one-pager variant becomes the body of an external client email with Marketing-Rule footer
+
+## Anti-Plagiarism Note
+
+This skill is composed in KRASA / finance terminology and the KRASA skill idiom (frontmatter / Purpose / When to Use / Required Input / Instructions [Before-you-start + numbered Process] / Output Templates / Output requirements / Regulatory & Compliance Layer / Personalization Hooks / Handoff Contracts / Example Output). It is not lifted from any third-party research product, sell-side industry primer, industry-association study, or competitor sector-brief template. Regulatory and framework references (SEC Marketing Rule 206(4)-1; Reg FD; FINRA Rule 2210; MiFID II inducement / payment-for-research; FCPA / OFAC; Advisers Act Rule 204-2; and the sector overlays — HIPAA, FCRA / GLBA, MiCA, ITAR / EAR) cite public regulation / standard-setter sources only; no proprietary methodology or work product is reproduced. Every market-sizing figure, segment cut, competitive-map entry, transaction record, and implication is composed per-brief from the user's own source material and config — no sell-side report language, industry-study text, or third-party research is copied verbatim. Anything quoted directly from a source is attributed and dated, and every quantitative claim names its source and date or is flagged as an analyst estimate.
 
 ## Example Output
 

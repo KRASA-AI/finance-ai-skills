@@ -66,6 +66,20 @@ AIG's gen-AI-powered underwriting assistant — built with Anthropic and Palanti
 
 This is adjacent to KRASA's finance scope but the stack-level signal — that vertical agents are now common-enough across finance and insurance to share a connector roster — informs how KRASA should think about cross-vertical reuse of v2.1 patterns.
 
+## Anthropic's own finance org as a reference deployment (June 2026)
+
+A June 2026 Anthropic webinar (and the surrounding practitioner write-ups) gave a rare look at how Anthropic's *own* finance team runs Claude in production — and the architecture is a near-exact mirror of the KRASA operating model. The team reports building and maintaining roughly **150 shared Claude skills** that automate reconciliations, financial analysis, reporting, and governance work. Three structural details matter for KRASA:
+
+- **Domain experts author the skills, not IT.** Accountants and FP&A analysts write the skills themselves; the finance function owns its own automation rather than queuing behind an engineering backlog. This is the single strongest external validation of KRASA's premise that a skill is a *domain artifact* — a documented procedure in the practitioner's own language — not a software deliverable.
+- **A version-controlled repository is the distribution layer.** The skills live in a GitHub repo as the version-control spine and are pushed to every team member's Claude Cowork and Claude.ai surface as workspace plugins — exactly the repo-of-skills-plus-changelog shape KRASA already uses. Skill quality is a function of review discipline and changelog hygiene, not one-off prompting.
+- **Skills define the procedure; connectors supply the live data.** The library encodes *how* a task is done; governed connectors provide *what* it runs on. This is the same separation KRASA expresses through Personalization Hooks (`connector_register`) and the governed-data-agentic-layer note — the skill is portable, the data binding is firm-specific.
+
+The takeaway for KRASA: the model of *finance professionals authoring a versioned, reviewable library of single-responsibility skills distributed as plugins over governed connectors* is no longer a thesis — it is how Anthropic's own finance function scales. KRASA's job is to ship that library, pre-built and per-vertical, with the compliance and personalization scaffolding already in place.
+
+## Execution-layer agents (vendor context, June 2026)
+
+A parallel commercial signal: research-and-intelligence vendors are shipping **always-on execution-layer agents** that move past interactive Q&A into standing, background workflow execution. AlphaSense's **SuperAnalyst** (June 3, 2026) is the clearest example — an agent that operates as a native platform user on the analyst's behalf, agentically codes and runs multi-step research and monitoring projects, builds and updates dashboards, identifies and conducts expert calls, and surfaces insights as situations evolve, on a deliberately token-efficient architecture for structured background work. This is the supervisor-specialist pattern (see `multi-agent-orchestration-finance.md`) productized as a standing operator rather than a one-shot assistant, and it reinforces the KRASA design direction toward orchestrator/front-end skills that compose specialist skills under a step-bounded, human-gated plan.
+
 ## Anthropic enterprise momentum (context)
 
 - 2026 revenue run-rate climbed above **$30 billion**, up from $9 billion at year-end 2025
