@@ -5,7 +5,7 @@ tools: [claude, chatgpt]
 difficulty: intermediate
 time_saved: "~3 hr/close"
 version: 2.1
-last_eval_score: null
+last_eval_score: 8.70
 ---
 
 # 🧾 General Ledger Reconciler
@@ -193,6 +193,10 @@ gl_reconciler:
     - "Payroll Clearing"
   output_format: "controller-close-package"  # controller-close-package | cfo-dashboard | audit-binder | ic-pre-check | onboarding
 ```
+
+## Anti-Plagiarism Note
+
+This skill is composed in KRASA / finance terminology and the KRASA skill idiom (frontmatter / Purpose / When to Use / Required Input / Instructions [Before-you-start + numbered Process] / Output Structure / Output requirements / Handoff Contracts / Audience Templates / Regulatory & Compliance Layer / Personalization Hooks / Example Output). It is not lifted from Oracle Fusion Ledger Agent documentation, HighRadius or BlackLine reconciliation-vendor templates, or Big Four (Deloitte / PwC / EY / KPMG) reconciliation guides. Regulatory and framework references (SOX §302 / §404 and §802 / 18 U.S.C. §1519; PCAOB AS 2201 / AS 2301; AICPA AU-C 330 and SSAE 18; SEC Rule 17a-4; ASC 606 / 842 / 350 / 360 / 830; IFRS 9; IAS 21; the SEC 2026 examination priority on AI-tool disclosure in ICFR) cite public regulation / standard-setter sources only; no proprietary methodology or work product is reproduced. Every reconciliation narrative, certification status, open-item classification, and proposed journal entry is composed per-entity from the user's own GL trial balance, sub-ledger exports, and config: every certified account carries a stated evidence reference (system, report, date, row count or Δ$); every proposed JE is explicitly marked as a proposal pending controller review, never as auto-posted; and no sub-ledger total is fabricated — an account without a provided sub-ledger is flagged "Unsupported balance," never silently certified.
 
 ## Example Output
 

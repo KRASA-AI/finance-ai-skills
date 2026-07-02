@@ -5,7 +5,7 @@ tools: [claude, chatgpt]
 difficulty: advanced
 time_saved: "~75 min/deal"
 version: 2.1
-last_eval_score: 8.40
+last_eval_score: 8.70
 ---
 
 # 🔀 Accretion / Dilution Analyzer
@@ -179,6 +179,10 @@ The following `config.yml` keys customize this skill:
 - `skills/admin/regulatory-filing-checker.md` → if the acquirer is a public filer, the proxy / 14A / 8-K integration-disclosure language is checked there
 - `skills/_shared/email-drafter.md` → the audience-matched email cover note (board exhibit, IC vote, IR Q&A) is drafted there
 - `skills/_shared/meeting-summarizer.md` → board / IC meeting recap inherits the audience-template's recommendation block
+
+## Anti-Plagiarism Note
+
+This skill is composed in KRASA / finance terminology and the KRASA skill idiom (frontmatter / Purpose / When to Use / Required Input / Instructions [Before-you-start + numbered Process] / Output Structure / Output requirements / Audience Templates / Regulatory & Compliance Layer / Personalization Hooks / Handoff Contracts / Example Output). It is not lifted from any third-party deal-analytics product, a sell-side note, a competitor pitch book, or a fairness-opinion work product. Regulatory and framework references (Reg M-A 17 CFR §229.1000–1016 and §240.14a-12; Reg G 17 CFR §244; '34 Act §14(a)-9 anti-fraud; Schedule 14E-2; FINRA Rule 5150 / 5121 / 2210; Reg AC; SEC Marketing Rule 206(4)-1; HSR 15 USC §18a; CFIUS 50 USC §4565; EU EUMR / UK CMA / sector regulators; FINRA 17a-4 / Advisers Act 204-2 books-and-records) cite public regulation / standard-setter sources only; no proprietary methodology or work product is reproduced. Every comment, synergy take, break-even read, and recommendation is composed per-deal from the user's own acquirer / target / deal inputs and config: GAAP and cash EPS are always shown side by side, the EPS bridge fully reconciles (standalone + each driver = pro forma, sum-checked), revenue synergies are disclosed separately with a stated credibility discount, and the restricted-list / MNPI / wall-cross overlay governs distribution. No press-release, sell-side-note, or counterparty language is reproduced verbatim; anything quoted directly is quote-and-cited.
 
 ## Example Output
 

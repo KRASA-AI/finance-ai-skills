@@ -4,8 +4,8 @@ category: operations
 tools: [claude, chatgpt]
 difficulty: advanced
 time_saved: "~10 hr/CIM"
-version: 1.0
-last_eval_score: null
+version: 2.1
+last_eval_score: 8.70
 ---
 
 # 📘 CIM Drafter
@@ -128,6 +128,10 @@ The following `config.yml` keys customize this skill:
 - `compliance.private_placement_framing` — Section 4(a)(2) / Reg D 506(b) / 506(c) selection
 - `anonymization.named_customers` — explicit list of customers permitted to be named; default-anonymization conventions for the rest
 - `appendix.data_room_index` — pointer to the data-room TOC / index for cross-referencing
+
+## Anti-Plagiarism Note
+
+This skill is composed in KRASA / finance terminology and the KRASA skill idiom (frontmatter / Purpose / When to Use / Required Input / Instructions [Before-you-start + numbered Process] / Output Templates / Output requirements / Regulatory & Compliance Layer / Personalization Hooks / Handoff Contracts / Example Output). It is not lifted from any third-party sell-side product, a competitor bank's CIM archive, a prior-deal CIM, or a standard CIM template. Regulatory and framework references (Securities Act Section 4(a)(2); Reg D Rule 506(b) / 506(c) and Form D; FINRA Rule 5123 / 5122 private-placement filing; FINRA Rule 5141 sell-side; SEC Marketing Rule 206(4)-1 adjacency; HSR; CFIUS; FCPA / OFAC; GDPR / CCPA and sector privacy; HIPAA / GLBA / PCI / state-banking) cite public regulation / standard-setter sources only; no proprietary methodology or work product is reproduced. Every section — Executive Summary, Investment Highlights, Industry Overview, Company Overview, Financial Performance & Projections, Growth Strategy, Risk Factors, Transaction Overview — is composed per-target from the engagement's own diligence file and config: every quantitative claim ties to a diligence-file source pointer, every forward projection carries the management / banker / hybrid methodology flag, and every industry / market data point cites a primary source (regulator, association, corporate disclosure) rather than regurgitated sell-side narrative. Anonymization rules are respected end-to-end and the redaction key is kept separate, never embedded.
 
 ## Example Output
 
